@@ -1,16 +1,39 @@
 const router = require('express').Router();
 const { Product } = require('../../db/models')
-
+const { Op } = require('sequelize')
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation')
 const { check, body } = require('express-validator')
 
-router.get('/', restoreUser, requireAuth, async (req, res, next) => {
+
+router.get('/query', requireAuth, async (req, res, next) => {
+    console.log('REQ QUERYYY', req.query)
+    let query = {
+        where: {},
+        order: []
+    };
+
+    const { descripcion, orderBy, direction } = req.query
+    if (descripcion) {
+        query.where.descripcion = {
+            [Op.like]: `%${descripcion}%`
+        };
+    }
+    if (orderBy !== 'undefined') {
+        query.order.push([orderBy, direction.toUpperCase()])
+    }
+
+
+    let queryProducts = await Product.findAll(query);
+    res.status(201).json(queryProducts)
+});
+
+router.get('/', requireAuth, async (req, res, next) => {
     let products = await Product.findAll()
     res.json(products)
 });
 
-router.post('/', restoreUser, requireAuth, async (req, res, next) => {
+router.post('/', requireAuth, async (req, res, next) => {
     const { codigo, descripcion, medidasValor, medidasType, costo, precio, cambio, company } = req.body
     const newProduct = await Product.create({
         codigo, descripcion, medidasValor, medidasType, costo, precio, cambio, company
@@ -21,7 +44,7 @@ router.post('/', restoreUser, requireAuth, async (req, res, next) => {
     })
 });
 
-router.delete('/:id', restoreUser, requireAuth, async (req, res, next) => {
+router.delete('/:id', requireAuth, async (req, res, next) => {
     const id = req.params.id
     let product = await Product.findByPk(id)
     let descripcion = product.descripcion
@@ -33,7 +56,7 @@ router.delete('/:id', restoreUser, requireAuth, async (req, res, next) => {
     res.status(200).json(`Succesfully deleted product: ${descripcion}`)
 });
 
-router.put('/:id', restoreUser, requireAuth, async (req, res, next) => {
+router.put('/:id', requireAuth, async (req, res, next) => {
     const id = req.params.id
     let product = await Product.findByPk(id)
     if (!product) {

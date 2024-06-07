@@ -1,6 +1,7 @@
 // setting API routers to hablde API requests. REST API server functionality
 
 const router = require('express').Router();
+
 const productRouter = require('./product')
 const sessionRouter = require('./session')
 const { restoreUser } = require('../../utils/auth.js')
