@@ -14,7 +14,6 @@ const productsRouter = require('./products')
 
 
 router.get('/', restoreUser, async (req,res)=>{
-    console.log('USER', req.user)
     if(!req.user) {
         return res.redirect('/login');
     }

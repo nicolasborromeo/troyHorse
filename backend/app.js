@@ -60,7 +60,8 @@ request comes from your site and not an unauthorized site.
 //------------------------END OF PRE-REQUEST MIDDLEWARE--------------------------------//
 
 
-
+// Serve static files from the 'frontend' directory
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 const routes = require('./routes'); //import to add the routes
 app.use(routes) // connect all the routes

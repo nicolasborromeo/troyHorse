@@ -86,5 +86,13 @@ const requireAuth = function (req, res, next) {
 }
 
 
+const sendToLogin = (req, res, next) => {
+    // Exclude the login route to prevent redirection loop
+    if (req.path !== '/login' && !req.user) {
+        return res.redirect('/login');
+    }
+    next();
+};
+
 //exporting everything
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+module.exports = { setTokenCookie, restoreUser, requireAuth, sendToLogin };
