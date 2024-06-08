@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/products.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Column -->
+        <nav class="nav-column">
+            <img src="../assets/images/th-logo.png" alt="Company Logo" class="logo">
+            <ul>
+                <li><a href="#">Presupuestar</a></li>
+                <li><a href="/products" id="products-link">Productos</a></li>
+                <li><a href="#">Clientes</a></li>
+                <li><a href="#">Presupuestos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <h2>PRODUCTS</h2>
+                <div class="header-icons">
+                    <i class="fas fa-user icon"></i>
+                    <i class="fas fa-cog icon"></i>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content">
+                <!-- <h2>PRODUCTS</h2> -->
+                <!-- Add your content here -->
+                <div class="query-bar">
+                    <form id="search-form">
+                        <input type="text" name="descripcion" placeholder="Search..." class="search-input">
+                        <select name="orderBy">
+                            <option value="null">Ordenar por...</option>
+                            <option value="descripcion">Descripcion</option>
+                            <option value="precio">Precio</option>
+                            <option value="costo">Costo</option>
+                            <option value="company">Marca</option>
+                        </select>
+                        <select name=direction class="order-select">
+                            <option value="asc">Ascendente</option>
+                            <option value="desc">Descendente</option>
+                        </select>
+                        <button type="submit" class="search-button" id="searchButton">Search</button>
+                    </form>
+               <div id="products-ui"></div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/products.js"></script>
+</body>
+</html>
