@@ -1,4 +1,14 @@
 'use strict';
+
+
+let options = {};
+if(process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA
+};
+
+
+const { sequelize } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -13,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          models: 'Products',
+          model: 'Products',
           key: 'id'
         }
       },
@@ -31,10 +41,13 @@ module.exports = {
       descripcion: {
         type: Sequelize.STRING
       },
+      cantidad: {
+        type: Sequelize.INTEGER
+      },
       precioUnit: {
         type: Sequelize.FLOAT
       },
-      cantidad: {
+      descuento: {
         type: Sequelize.INTEGER
       },
       precioTotal: {
@@ -42,15 +55,18 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    });
+    },options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ProductsPresupuestos');
+    options.tableName = 'ProductsPresupuestos'
+    await queryInterface.dropTable(options);
   }
 };
