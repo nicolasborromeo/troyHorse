@@ -29,17 +29,15 @@
             <!-- Header -->
             <header>
                 <h2>PRESUPUESTADOR</h2>
-                <!-- <div class="header-icons">
-                    <i class="fas fa-user icon"></i>
-                    <i class="fas fa-cog icon"></i>
-                </div> -->
             </header>
 
             <!-- Page Content -->
+            <div class="company-logo"><img src="../assets/images/th-logo.png" alt="Company Logo" class="logo"></div>
             <div class="presupuestador-container">
-                <div class="section" id="section-vendedor">
-                    <h3>Vendedor</h3>
-                    <form action="/api/presupuestos" method="post"  class="presupuestador-from">
+
+                <div class="section">
+                    <h3>VENDEDOR</h3>
+                    <form  class="presupuestador-from">
                         <div class="vendedor-container">
                             <span class="detalle-vendedor">
                                 <label for="representante">Representante comercial:</label>
@@ -187,7 +185,9 @@
                             <input type="checkbox" id="iva-discriminado" name="iva-discriminado"><br>
                             <label for="total">TOTAL:</label>
                             <input type="number" step="1.00" id="total" name="total">
-                        </div>
+                        </div class="below-iva">
+                        <span class="b"></span>
+                       
                         <div id="iva-discriminado-div" class="hidden">
 
                         </div>
@@ -260,5 +260,6 @@
     </div>
     <script src="../assets/js/presupuestador.js"></script>
     <script src="../assets/js/modal.js"></script>
+    <script src="../assets/js/print.js"></script>
 </body>
 </html>
