@@ -1,4 +1,4 @@
-
+// window.onclick((event)=> {event.preventDefault()})
 
 //SET CURRENT DATE
 let currentDate = new Date();
@@ -116,7 +116,7 @@ presupuestador.addEventListener('submit', async (event) => {
         comentario: comentario,
         total: total
     }).toString();
-
+    console.log(queryString)
     try {
         // Fetch products based on search parameters
         const response = await fetch(`/api/presupuestador/query?${queryString}`, {
