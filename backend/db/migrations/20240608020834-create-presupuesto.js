@@ -28,12 +28,12 @@ module.exports = {
       fechaVenc: {
         type: Sequelize.DATE
       },
-      clienteId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model:'Clientes',
-          key: 'id'
-        }
+      cliente: {
+        type: Sequelize.STRING,
+        // references: {
+        //   model:'Clientes',
+        //   key: 'id'
+        // }
       },
       condicion: {
         type: Sequelize.STRING
@@ -44,6 +44,9 @@ module.exports = {
       iva: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
+      },
+      comentarios: {
+        type: Sequelize.STRING
       },
       total: {
         type: Sequelize.FLOAT

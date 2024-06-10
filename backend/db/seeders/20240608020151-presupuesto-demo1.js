@@ -17,9 +17,9 @@ module.exports = {
         telVendedor: '515544332',
         fecha: new Date('2024-06-20'),
         fechaVenc: new Date('2024-07-20'),
-        clienteId: null, // Assuming clienteId
+        cliente: 'DANIELA',
         condicion: 'CONSUMIDOR FINAL',
-        descuento: 0,
+        comentarios: "LOS VALORES SON IVA INCLUIDO PRESUPUESTO SUJETO A VISITA TECNICA",
         iva: true,
         total: 3192.37
       }

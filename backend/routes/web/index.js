@@ -10,6 +10,7 @@ const { restoreUser, requireAuth } = require('../../utils/auth')
 const loginRouter = require('./login')
 const homeRouter = require('./home')
 const productsRouter = require('./products')
+const presupuestadorRouter = require('./presupuestador')
 
 
 
@@ -24,5 +25,7 @@ router.use(express.static(path.join(__dirname, '../../../frontend')));
 router.use('/login', loginRouter)
 router.use('/home', homeRouter)
 router.use('/products', productsRouter)
+router.use('/presupuestador', presupuestadorRouter)
+
 
 module.exports = router

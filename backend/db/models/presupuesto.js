@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Presupuesto extends Model {
 
     static associate(models) {
-      Presupuesto.belongsTo(models.Cliente, {foreignKey: 'clienteId'})
+      // Presupuesto.belongsTo(models.Cliente, {foreignKey: 'clienteId'})
       Presupuesto.belongsToMany(models.Product,
         { through: 'ProductsPresupuestos',
           foreignKey:'presupuestoId',
@@ -40,22 +40,25 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    clienteId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Clientes',
-        key: 'id'
-      }
+    cliente: {
+      type: DataTypes.STRING,
+      // references: {
+      //   model: 'Clientes',
+      //   key: 'id'
+      // }
     },
     condicion: {
       type: DataTypes.STRING
     },
-    descuento: {
-      type: DataTypes.INTEGER
-    },
+    // descuento: {
+    //   type: DataTypes.INTEGER
+    // },
     iva: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
+    },
+    comentarios: {
+      type: DataTypes.STRING,
     },
     total: {
       type: DataTypes.FLOAT
