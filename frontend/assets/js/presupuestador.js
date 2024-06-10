@@ -37,7 +37,7 @@ function calculateTotal() {
     const ivaDiscriminado = document.getElementById('iva-discriminado').checked; //BUTTON
     if(ivaDiscriminado){
         div.className = 'iva-discriminado-class'
-        div.innerHTML=`<p>IVA: ${iva}</p>`
+        div.innerHTML=`<p><strong>IVA:</strong> ${iva}</p>`
     } else {
         div.className = 'hidden'
     }

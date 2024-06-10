@@ -11,6 +11,10 @@
     overflow: scroll;
 }
 
+.company-logo {
+    display: none;
+}
+
 .section {
     margin-bottom: 10px;
 }
@@ -101,18 +105,27 @@
     margin: 0;
 }
 
-
-.iva-discriminado-class {
+.below-iva{
     display: grid;
-    grid-template-areas: ". . . iva";
-    /* margin-right: 155px; */
-    font-size: 12px;
-    font-weight: bold;
+    grid-template-areas: "b b b b b b iva";
+}
+.b {
+    grid-area: b;
+    width: 100%;
+}
+.iva-discriminado-class {
+    margin-left: 68%;
+    margin-top: 2px;
+    font-size: 11px;
+    font-weight:400;
     font-family: Arial, sans-serif;
+    line-height: 5px;
+    text-align: left;
 }
 .iva-discriminado-class p {
     grid-area: iva;
     text-align: left;
+    padding-left: 1px;
 }
 
 .hidden{
