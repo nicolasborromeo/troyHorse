@@ -6,32 +6,61 @@ const { handleValidationErrors } = require('../../utils/validation')
 const { check, body } = require('express-validator')
 
 
+
+
+
+router.get('/presu', requireAuth, async (req,res,next)=> {
+    const { descripcion} = req.query
+    // console.log(descripcion)
+    let query = {}
+
+    if (descripcion !== 'undefined') {
+        query.where={}
+        query.where.descripcion = {
+            [Op.like]: `%${descripcion}%`
+        };
+    }
+    // console.log(query)
+    let queryProducts = await Product.findAll(query);
+    res.status(201).json(queryProducts)
+} )
+
+
+
+
+
 router.get('/query', requireAuth, async (req, res, next) => {
-    console.log('REQ QUERYYY', req.query)
-    let query = {
-        where: {},
-        order: []
-    };
+    // console.log('REQ QUERYYY', req.query)
+    let query = {};
 
     const { descripcion, orderBy, direction } = req.query
-    if (descripcion) {
+
+    if (descripcion !== 'undefined') {
+        query.where={}
         query.where.descripcion = {
             [Op.like]: `%${descripcion}%`
         };
     }
     if (orderBy !== 'undefined') {
+        query.order = []
         query.order.push([orderBy, direction.toUpperCase()])
     }
-
-
     let queryProducts = await Product.findAll(query);
     res.status(201).json(queryProducts)
 });
+
+
+
+
 
 router.get('/', requireAuth, async (req, res, next) => {
     let products = await Product.findAll()
     res.json(products)
 });
+
+
+
+
 
 router.post('/', requireAuth, async (req, res, next) => {
     const { codigo, descripcion, medidasValor, medidasType, costo, precio, cambio, company } = req.body
@@ -44,6 +73,10 @@ router.post('/', requireAuth, async (req, res, next) => {
     })
 });
 
+
+
+
+
 router.delete('/:id', requireAuth, async (req, res, next) => {
     const id = req.params.id
     let product = await Product.findByPk(id)
@@ -55,6 +88,11 @@ router.delete('/:id', requireAuth, async (req, res, next) => {
     })
     res.status(200).json(`Succesfully deleted product: ${descripcion}`)
 });
+
+
+
+
+
 
 router.put('/:id', requireAuth, async (req, res, next) => {
     const id = req.params.id
@@ -77,5 +115,9 @@ router.put('/:id', requireAuth, async (req, res, next) => {
         updatedProduct: update
     })
 })
+
+
+
+
 
 module.exports = router
