@@ -62,12 +62,19 @@ let presupuestador = document.querySelector('.presupuestador-from')
 presupuestador.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+
+
+
+    let productsData = getProducts()
+    console.log(productsData)
+
     const formData = new FormData(presupuestador);
+    // console.log('FORM DATA', formData)
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
 
-    const fecha = formData.get('fecha');
+    // const fecha = formData.get('fecha');
     const fechaVenc = formData.get('fecha-venc');
 
     const cliente = formData.get('cliente');
@@ -80,21 +87,20 @@ presupuestador.addEventListener('submit', async (event) => {
 
     const condicion = formData.get('condicion');
     const iva = formData.get('iva-incluido');
-    const ivaDesc = formData.get('iva-descriminado');
+    const ivaDisc = formData.get('iva-discriminado');
 
-    const codigo = formData.get('codigo');
-    const descripcion = formData.get('descripcion');
-    const cantidad = formData.get('cantidad');
-    const precioUnit = formData.get('p-unitario');
-    const descuento = formData.get('descuento');
-    const precioTotal = formData.get('p-total');
+    // const codigo = formData.get('codigo');
+    // const descripcion = formData.get('descripcion');
+    // const cantidad = formData.get('cantidad');
+    // const precioUnit = formData.get('p-unitario');
+    // const descuento = formData.get('descuento');
+    // const precioTotal = formData.get('p-total');
 
     const comentario = formData.get('comentario');
     const total = formData.get('total');
 
 
     let body = {
-        // codigoPresupuesto: presupuestoNum,
         vendedor: vendedor,
         telVendedor: telVendedor,
         fecha: new Date().toISOString().slice(0, 10),
@@ -108,13 +114,14 @@ presupuestador.addEventListener('submit', async (event) => {
         cuit: cuit,
         condicion: condicion,
         iva: iva,
-        ivaDesc: ivaDesc,
-        codigo: codigo,
-        descripcion: descripcion,
-        cantidad: cantidad,
-        precioUnit:precioUnit,
-        descuento: descuento,
-        precioTotal: precioTotal,
+        ivaDisc: ivaDisc,
+        productos: productsData,
+        // codigo: codigo,
+        // descripcion: descripcion,
+        // cantidad: cantidad,
+        // precioUnit:precioUnit,
+        // descuento: descuento,
+        // precioTotal: precioTotal,
         comentario: comentario,
         total: total
     }
@@ -133,3 +140,26 @@ presupuestador.addEventListener('submit', async (event) => {
     }
 
 })
+
+
+function getProducts() {
+
+    //GO TO DETALLE TABLE
+    let detalleTable = document.getElementById('detalle-body');
+
+    //create a products array
+    let products = []
+    //iterate each row
+    detalleTable.querySelectorAll('tr').forEach((row) => {
+
+        //create an empty array/object for the row
+        let productRow = {};
+        row.querySelectorAll('input').forEach(input => {
+            productRow[input.name] = input.value
+        })
+        //if there's data, then push the row array to the products array
+        if(productRow.descripcion) products.push(productRow)
+    })
+        //when it's done return
+        return products;
+}

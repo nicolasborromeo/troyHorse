@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Presupuesto, ProductsPresupuestos } = require('../../db/models')
+const { Product, Presupuesto, ProductsPresupuesto } = require('../../db/models')
 
 router.get('/ultimo', async (req, res, next) => {
     let ultimo = await Presupuesto.findAll({
@@ -22,12 +22,36 @@ router.post('/', async(req,res,next)=> {
 
         //presupuesto model
     const {vendedor, telVendedor,fecha,fechaVenc, condicion,
-        cuit, telCliente, iva} = req.body
-        //future cliente model but now is part of presupuesto
-    const {cliente, direccion, provincia, loc, cp} =req.body
+        cuit, telCliente, iva, comentario, total} = req.body
+    const presupuestoCode = await Presupuesto.getCodigo() + 1
+     //future cliente model but now is part of presupuesto
+     const {cliente, direccion, provincia, loc, cp} =req.body
+
+        //CREAR PRESUPUESTO IN DATABASE
+        // let nuevoPresupuesto = await Presupuesto.create({
+        //     codigo: presupuestoCode,
+        //     vendedor: vendedor,
+        //     telVendedor: telVendedor,
+        //     fecha: fecha,
+        //     fechaVenc: fechaVenc,
+        //     cliente: cliente,
+        //     condicion: condicion,
+        //     iva: iva,
+        //     comentarios: comentario,
+        //     total: total
+        // })
+
+
+
         //product model through productospresupuesto
     const {codigo, descripcion, cantidad, precioUnit, precioTotal, descuento} = req.body
-    res.json(vendedor, telVendedor,fecha,fechaVenc, condicion,cliente, telCliente, iva, cuit, direccion, provincia, loc, cp, codigo, descripcion, cantidad, precioUnit, precioTotal)
+        //CREAR PRODUCTOPRESUPUESTO DATA
+        // let nuevoDetalle = await ProductsPresupuesto.create({
+
+        // })
+
+
+    res.json({message: 'GOT DATA IN THE BODT', body: req.body})
 })
 
 module.exports = router

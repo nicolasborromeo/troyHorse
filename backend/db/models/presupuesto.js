@@ -5,6 +5,20 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Presupuesto extends Model {
 
+    static async getCodigo() {
+      try {
+        const latestPresupuesto = await this.findOne({
+          limit: 1,
+          attributes: ['id', 'codigo'],
+          order: [['id', 'DESC']]
+        });
+        return latestPresupuesto ? latestPresupuesto.codigo : null;
+      } catch (error) {
+        // Handle errors here
+        console.error('Error fetching latest Presupuesto:', error);
+        throw error;
+      }};
+
     static associate(models) {
       // Presupuesto.belongsTo(models.Cliente, {foreignKey: 'clienteId'})
       Presupuesto.belongsToMany(models.Product,

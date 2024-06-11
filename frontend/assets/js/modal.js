@@ -39,7 +39,6 @@ document.querySelectorAll('input[name="descripcion"]').forEach(input => {
 
                 //SAVE THE ROW TO LATER POPULATE WITH DATA
                 selectedRow = document.activeElement.closest('tr')
-                console.log('selectedROW', selectedRow)
 
                 //OPEN MODAL
                 const modal = document.getElementById("myModal");
@@ -85,7 +84,6 @@ document.querySelector('.search-button').addEventListener('click', async () => {
         direction: direction
     }).toString();
 
-    console.log(queryString)
     try {
         const response = await fetch(`api/products/query?${queryString}`);
         const data = await response.json();
@@ -98,7 +96,8 @@ document.querySelector('.search-button').addEventListener('click', async () => {
 });
 
 
-//CLOSE MODAL FUNCTIONS --
+//CLOSE MODAL FUNCTIONS -- AGREGAR PRODUCTO --------------
+
 // Close the modal when the user clicks on <span> (x)
 document.querySelector(".close").onclick = function () {
     document.getElementById("myModal").style.display = "none";
@@ -107,7 +106,6 @@ document.querySelector(".close").onclick = function () {
 // Close the modal when the user clicks anywhere outside of the modal
 window.onclick = function (event) {
     const modal = document.getElementById("myModal");
-    // console.log(event.target)
     const cancelar = document.getElementById("cancelar")
     const agregar = document.getElementById("agregar")
 
@@ -119,7 +117,6 @@ window.onclick = function (event) {
 //--------------------- AGREGAR PRODUCTO -----------------
     if(event.target == agregar) {
         if(selectedProduct) {
-            console.log(selectedProduct)
             modal.style.display = "none";
             selectedRow.querySelector('input[name ="codigo"]').value = selectedProduct.codigo
             selectedRow.querySelector('input[name ="descripcion"]').value = selectedProduct.descripcion
