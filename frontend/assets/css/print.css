@@ -26,7 +26,8 @@
 
     .company-logo {
         display: block;
-        position: static;
+        position: relative;
+        top:15px;
         z-index: -1;
         width: 200px;
         margin: 0 auto !important;
@@ -43,12 +44,13 @@
 
     .presupuestador-container {
         z-index: 5;
-        position: static;
+        position: relative;
+        bottom: 15px;
         width: 100%;
-        padding: 20px !important;
+        /* padding: 20px !important; */
         background-color: #ffffff !important;
         border: none !important;
-        font-size: x-small;
+        font-size: small;
         box-shadow: none !important;
     }
 
@@ -101,7 +103,7 @@
         padding-top: 5px;
     }
 
-    .section h3 {
+    .section h3, .presupuesto-info-container {
         /* background: #f0f0f0; */
         padding: 10px !important;
         border: 1px solid #7f7f7f !important;
@@ -227,9 +229,6 @@
         top: 0;
         width: 150px;
         margin-left: 68%;
-        /* display: grid; */
-        /* max-width: min-content; */
-        /* min-width: min-content; */
         margin-top: 2px;
         font-size: 11px;
         font-weight:400;
@@ -243,21 +242,41 @@
         padding-left: 1px;
         margin: 0;
     }
+
+
     #vendedor-h3 {
         /* margin: 0 auto !important; */
         padding: 0 230px;
-        text-align: left;
+        text-align: center;
         white-space: nowrap; /* Ensure the text doesn't break on its own */
         position: relative;  /* For positioning the span */
         margin-bottom: 10px;
 
     }
-
-    #vendedor-h3 span {
-        font-weight: 100;
-        display: block; /* Make the span start on a new line */
-        margin-top: 1px; /* Adjust as needed */
-        font-size: 0.7em; /* Optional: adjust the font size */
-        padding: 0;
+    .presupuesto-info-container {
+        margin-top: -30px;
     }
+      .presupuesto-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .presupuesto-header h2 {
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .presupuesto-num {
+        font-size: medium;
+      }
+
+      .presupuesto-subtext {
+        display: block;
+        text-align: center;
+        margin-top: 3px;
+        font-size: 12px;
+        color: gray;
+      }
+
 }
