@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title class="page-title">Presupuestador</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/presupuestador.css">
     <link rel="stylesheet" href="../assets/css/modal.css">
@@ -36,13 +36,13 @@
             <div class="presupuestador-container">
 
                 <div class="section">
-                    <h3>VENDEDOR</h3>
+                    <h3 id="vendedor-h3">VENDEDOR</h3>
                     <form  class="presupuestador-from">
                         <div class="vendedor-container">
                             <span class="detalle-vendedor">
-                                <label for="representante">Representante comercial:</label>
+                                <label for="representante">Representante Comercial:</label>
                                 <input type="text" id="representante" name="representante" oninput="this.value = this.value.toUpperCase()"><br>
-                                <label for="telefono-vendedor">TELEFONO VENDEDOR:</label>
+                                <label for="telefono-vendedor">Telefono Vendedor:</label>
                                 <input type="text" id="telefono-vendedor" name="telVendedor"><br>
                             </span>
                             <span class="fechas">
@@ -187,7 +187,7 @@
                             <input type="number" step="1.00" id="total" name="total">
                         </div class="below-iva">
                         <span class="b"></span>
-                       
+
                         <div id="iva-discriminado-div" class="hidden">
 
                         </div>

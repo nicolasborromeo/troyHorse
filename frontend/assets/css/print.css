@@ -7,15 +7,13 @@
     .print-button {
         display: none !important;
     }
-    /* * {
-        text-align: left;
-    } */
+
 
     body {
         margin: 0 !important;
         padding: 0 !important;
         box-shadow: none !important;
-        text-align: left !important;
+        /* text-align: left !important; */
     }
 
     .container {
@@ -110,7 +108,7 @@
         background-color: rgb(160, 157, 157) !important;
         margin: 0 !important;
         margin-bottom: 10px !important;
-        box-shadow: 1px 1px 1px 1px rgb(170, 169, 169) !important;
+        box-shadow: 1px 1px  rgb(170, 169, 169) !important;
         position: static;
         z-index: 10;
         /* background-color: #555 !important; */
@@ -226,5 +224,23 @@
         grid-area: iva;
         text-align: left;
         padding-left: 3px;
+    }
+
+    #vendedor-h3 {
+        /* margin: 0 auto !important; */
+        padding: 0 230px;
+        text-align: left;
+        white-space: nowrap; /* Ensure the text doesn't break on its own */
+        position: relative;  /* For positioning the span */
+        margin-bottom: 10px;
+
+    }
+
+    #vendedor-h3 span {
+        font-weight: 100;
+        display: block; /* Make the span start on a new line */
+        margin-top: 1px; /* Adjust as needed */
+        font-size: 0.7em; /* Optional: adjust the font size */
+        padding: 0;
     }
 }

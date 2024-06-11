@@ -92,10 +92,10 @@ presupuestador.addEventListener('submit', async (event) => {
     const total = formData.get('total');
 
 
-    const queryString = new URLSearchParams({
-        vendedor: query !== '' ? query : undefined,
-        telVendedor: orderBy !== 'null' ? orderBy : undefined,
-        fecha: new Date(),
+    let body = {
+        vendedor: vendedor,
+        telVendedor: telVendedor,
+        fecha: new Date().toISOString().slice(0, 10),
         fechaVenc: fechaVenc,
         cliente: cliente,
         telCliente: telCliente,
@@ -115,15 +115,16 @@ presupuestador.addEventListener('submit', async (event) => {
         precioTotal: precioTotal,
         comentario: comentario,
         total: total
-    }).toString();
-    console.log(queryString)
+    }
+
     try {
         // Fetch products based on search parameters
-        const response = await fetch(`/api/presupuestador/query?${queryString}`, {
+        const response = await fetch(`/api/presupuestos/`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
+            body: JSON.stringify(body)
         }).then(res => res.json()).then(data => console.log(data));
     } catch (error) {
         console.error('Error fetching products:', error);
