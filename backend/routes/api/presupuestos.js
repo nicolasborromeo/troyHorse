@@ -4,8 +4,8 @@ const { Product, Presupuesto, ProductsPresupuestos } = require('../../db/models'
 router.get('/ultimo', async (req, res, next) => {
     let ultimo = await Presupuesto.findAll({
        limit: 1,
-       attributes: ['id'],
-       order: [['id', 'DESC']]
+       attributes: ['codigo'],
+       order: [['codigo', 'DESC']]
     })
     res.status(200).json(...ultimo)
 })
@@ -18,7 +18,6 @@ router.get('/', async (req, res, next)=> {
 })
 
 router.post('/', async(req,res,next)=> {
-    console.log('HI')
     console.log('BODY FROM .POST PRESUPUESTOS ROUTER', req.body)
 
         //presupuesto model

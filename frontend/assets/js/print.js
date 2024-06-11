@@ -89,7 +89,7 @@ let fetchLast = async () => {
             infoContainer.className = 'presupuesto-info-container'
             infoContainer.innerHTML = `<div class="presupuesto-header">
                                 <h2>PRESUPUESTO</h2>
-                                <span class="presupuesto-num" id="presupuesto-num-span">${data.id}</span>
+                                <span class="presupuesto-num" id="presupuesto-num-span">#000-${data.codigo + 1}</span>
                                 </div>
                                 <span class="presupuesto-subtext">*No valido como factura</span>`
             h3.parentNode.replaceChild(infoContainer, h3)

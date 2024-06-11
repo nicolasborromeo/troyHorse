@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    codigo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true
+    },
     vendedor: {
       type: DataTypes.STRING
     },

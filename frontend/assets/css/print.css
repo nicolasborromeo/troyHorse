@@ -265,10 +265,12 @@
       .presupuesto-header h2 {
         margin: 0 auto;
         text-align: center;
+
       }
 
       .presupuesto-num {
         font-size: medium;
+        position: absolute;
       }
 
       .presupuesto-subtext {

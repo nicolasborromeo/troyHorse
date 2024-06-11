@@ -63,6 +63,7 @@ presupuestador.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(presupuestador);
+    const codigoPresupuesto = formData.get('codigoPresupuesto')
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
 
