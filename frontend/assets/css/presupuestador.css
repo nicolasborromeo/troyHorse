@@ -166,3 +166,9 @@
 .print-button button:hover {
     background-color: #0056b3;
 }
+
+.telefono-cliente-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

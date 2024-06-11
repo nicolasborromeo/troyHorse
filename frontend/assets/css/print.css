@@ -1,5 +1,4 @@
 @media print {
-
     /* Hide unnecessary elements */
     .nav-column,
     header,
@@ -8,12 +7,19 @@
         display: none !important;
     }
 
-
     body {
         margin: 0 !important;
         padding: 0 !important;
         box-shadow: none !important;
-        /* text-align: left !important; */
+
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    @page {
+        size: A4;
+        margin:0;
     }
 
     .container {
@@ -22,32 +28,30 @@
         padding: 0 !important;
         border: none !important;
         box-shadow: none !important;
+
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
     }
 
     .company-logo {
         display: block;
-        position: relative;
-        top:15px;
-        z-index: -1;
-        width: 200px;
-        margin: 0 auto !important;
+        width: 100%; /* Make it responsive */
         text-align: center;
+        margin: 20px auto 0 !important;
         padding: 0 !important;
         box-shadow: none !important;
     }
 
     .company-logo img {
-        width: 100%;
-        height: 100%;
+        width: auto;
+        height: 150px; /* Ensure the logo has a fixed height */
+        max-width: 100%;
         box-shadow: none !important;
     }
 
     .presupuestador-container {
-        z-index: 5;
-        position: relative;
-        bottom: 15px;
         width: 100%;
-        /* padding: 20px !important; */
         background-color: #ffffff !important;
         border: none !important;
         font-size: small;
@@ -57,6 +61,9 @@
     .section {
         margin-bottom: 20px;
         box-shadow: none !important;
+
+        flex-grow: 1;
+        overflow: hidden;
     }
 
     .section>.vendedor-container {
@@ -72,21 +79,10 @@
         align-items: center;
     }
 
-    .cliente-direccion {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .prov-loc-cp {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .condicion-cuit {
+    .cliente-direccion,
+    .prov-loc-cp,
+    .condicion-cuit,
+    .iva-descuento {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -94,26 +90,21 @@
     }
 
     .iva-descuento {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
         border-top: 1px solid rgb(111, 107, 107)!important;
         margin-top: 8px !important;
         padding-top: 5px;
+        align-items: center;
     }
 
     .section h3, .presupuesto-info-container {
-        /* background: #f0f0f0; */
         padding: 10px !important;
         border: 1px solid #7f7f7f !important;
         background-color: rgb(160, 157, 157) !important;
         margin: 0 !important;
         margin-bottom: 10px !important;
-        box-shadow: 1px 1px  rgb(170, 169, 169) !important;
+        box-shadow: 1px 1px rgb(170, 169, 169) !important;
         position: static;
         z-index: 10;
-        /* background-color: #555 !important; */
     }
 
     .section label {
@@ -141,7 +132,6 @@
         box-shadow: none !important;
     }
 
-
     .details-table th,
     .details-table td {
         border: 1px solid white !important;
@@ -157,7 +147,6 @@
 
     #detalle-body input {
         width: auto !important;
-        /* border: 1px solid white !important; */
         margin: 0 !important;
         box-shadow: none !important;
     }
@@ -168,117 +157,88 @@
         box-shadow: none !important;
     }
 
-    /* .print-button {
-        text-align: center !important;
-        margin-top: 5px !important;
-        box-shadow: none !important;
-    }
-
-    .print-button button {
-        padding: 5px 10px !important;
-        font-size: 13px !important;
-        cursor: pointer !important;
-        background-color: rgb(45, 62, 80) !important;
-        color: #fff !important;
-        border: none !important;
-        border-radius: 4px !important;
-        box-shadow: none !important;
-    }
-
-    .print-button button:hover {
-        background-color: #0056b3 !important;
-        box-shadow: none !important;
-    } */
-    /* .input-span {
-        text-align: left!important;
-        margin-left: 0px;
-        padding-left: 0px;
-        position: static;
-        left: 500px
-    } */
-
-
     label {
         flex: 0 0 auto;
         width: min-content;
         margin-right: 5px;
         align-items: center;
         padding-top: 7px;
-
     }
 
     .input-span {
         flex: 1;
         align-items: center;
-        /* padding: 3px; */
-        /* justify-self: left; */
     }
 
-    .below-iva{
+    .below-iva {
         display: grid;
         grid-template-areas: "b b b b b b iva";
         position: relative;
     }
+
     .b {
         grid-area: b;
         width: 100%;
     }
+
     .iva-discriminado-class {
-        position:relative;
-        right: -15px;
-        top: 0;
+        position: relative;
+        right: -22px;
+        top: 5px;
         width: 150px;
         margin-left: 68%;
         margin-top: 2px;
         font-size: 11px;
-        font-weight:400;
+        font-weight: 400;
         font-family: Arial, sans-serif;
         line-height: 5px;
         text-align: left;
     }
+
     .iva-discriminado-class p {
         grid-area: iva;
         text-align: left;
         padding-left: 1px;
-        margin: 0;
+        margin: 0 0 10px;
     }
-
 
     #vendedor-h3 {
-        /* margin: 0 auto !important; */
         padding: 0 230px;
         text-align: center;
-        white-space: nowrap; /* Ensure the text doesn't break on its own */
-        position: relative;  /* For positioning the span */
+        white-space: nowrap;
+        position: relative;
         margin-bottom: 10px;
+    }
 
-    }
-    .presupuesto-info-container {
-        margin-top: -30px;
-    }
-      .presupuesto-header {
+    .presupuesto-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-      }
+    }
 
-      .presupuesto-header h2 {
+    .presupuesto-header h2 {
         margin: 0 auto;
         text-align: center;
+        position: relative;
+        left: 40px;
+    }
 
-      }
-
-      .presupuesto-num {
+    .presupuesto-num {
         font-size: medium;
-        position: absolute;
-      }
+        position: relative;
+    }
 
-      .presupuesto-subtext {
+    .presupuesto-subtext {
         display: block;
         text-align: center;
         margin-top: 3px;
         font-size: 12px;
         color: gray;
-      }
-
+    }
+    .telefono-cliente-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
 }
