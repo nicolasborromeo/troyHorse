@@ -1,4 +1,4 @@
-
+// window.onclick((event)=> {event.preventDefault()})
 
 //SET CURRENT DATE
 let currentDate = new Date();
@@ -37,7 +37,7 @@ function calculateTotal() {
     const ivaDiscriminado = document.getElementById('iva-discriminado').checked; //BUTTON
     if(ivaDiscriminado){
         div.className = 'iva-discriminado-class'
-        div.innerHTML=`<p>IVA: ${iva}</p>`
+        div.innerHTML=`<p><strong>IVA:</strong> ${iva}</p>`
     } else {
         div.className = 'hidden'
     }
@@ -116,7 +116,7 @@ presupuestador.addEventListener('submit', async (event) => {
         comentario: comentario,
         total: total
     }).toString();
-
+    console.log(queryString)
     try {
         // Fetch products based on search parameters
         const response = await fetch(`/api/presupuestador/query?${queryString}`, {

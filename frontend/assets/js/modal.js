@@ -1,3 +1,4 @@
+
 let selectedProduct = null;
 let initDescription = null;
 let selectedRow = null
@@ -124,6 +125,7 @@ window.onclick = function (event) {
             selectedRow.querySelector('input[name ="descripcion"]').value = selectedProduct.descripcion
             // if (!selectedRow.querySelector('input[name ="cantidad"]').value) selectedRow.querySelector('input[name ="cantidad"]').value = 1
             selectedRow.querySelector('input[name ="p-unitario"]').value = selectedProduct.precio
+            // selectedRow.querySelector('input[name ="p-total"]').value = selectedProduct.precio * selectedRow.querySelector('input[name ="cantidad"]').value
 
         } else{
             alert('Please select a product first.');
@@ -131,10 +133,3 @@ window.onclick = function (event) {
         }
     }
 };
-
-
-
-
-document.querySelector('.print-button button').addEventListener('click', () => {
-    window.print();
-});
