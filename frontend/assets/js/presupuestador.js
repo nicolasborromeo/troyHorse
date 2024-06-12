@@ -122,6 +122,16 @@ async function handleFromSubmit() {
         total: total,
         codigoPresupuesto: codigoPresupuesto
     };
+    const setEmptyStringsToNull = (obj) => {
+        for (const key in obj) {
+            if (obj[key] === "") {
+                obj[key] = null;
+            }
+        }
+        return obj;
+    };
+
+    body = setEmptyStringsToNull(body);
 
 
     try {
