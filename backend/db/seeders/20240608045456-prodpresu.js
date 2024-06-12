@@ -11,14 +11,15 @@ const {ProductsPresupuesto} = require('../models');
 module.exports = {
   async up (queryInterface, Sequelize) {
     await ProductsPresupuesto.bulkCreate([
+      //EDGECASE
      {
-      id:1,
-      productId: 1,
+      id: 1,
+      productId: null,
       presupuestoId: 1,
-      codigo: "01581",
+      codigo: null,
       descripcion: "PF ING INTENSIVE CUMARU",
-      precioUnit: 30,
       cantidad: 100,
+      precioUnit: 30,
       descuento: null,
       precioTotal: 3000
     },
@@ -28,8 +29,8 @@ module.exports = {
       presupuestoId: 2,
       codigo: "03019",
       descripcion: "PEGAMENTO CIPEP RENOVATOR",
-      precioUnit: 45,
       cantidad: 150,
+      precioUnit: 45,
       descuento: 5,
       precioTotal: 6412.5
     },
@@ -39,8 +40,8 @@ module.exports = {
       presupuestoId: 2,
       codigo: "01361",
       descripcion: "PF ING INOVARE CURITIBA CLASSIC SMOOTH",
-      precioUnit: 38,
       cantidad: 200,
+      precioUnit: 38,
       descuento: 10,
       precioTotal: 6840
     },
@@ -50,8 +51,8 @@ module.exports = {
       presupuestoId: 3,
       codigo: "01939",
       descripcion: "PF ING RUSTIK CURITIBA NATURAL",
-      precioUnit: 36.75,
       cantidad: 250,
+      precioUnit: 36.75,
       descuento: 15,
       precioTotal: 7809.37
     },
@@ -61,8 +62,8 @@ module.exports = {
       presupuestoId: 3,
       codigo: "01870",
       descripcion: "PF ING CLICK CURITIBA HOPE",
-      precioUnit: 30,
       cantidad: 300,
+      precioUnit: 30,
       descuento: 20,
       precioTotal: 7200
     },
@@ -72,8 +73,8 @@ module.exports = {
       presupuestoId: 4,
       codigo: "01993",
       descripcion: "PF ING NATIVE GUAYUVIRA",
-      precioUnit: 49,
       cantidad: 100,
+      precioUnit: 49,
       descuento: null,
       precioTotal: 4900
     },
@@ -83,13 +84,13 @@ module.exports = {
       presupuestoId: 4,
       codigo: "03062",
       descripcion: "LACA CIPEP ALTO BRILLO",
-      precioUnit: 75,
       cantidad: 3,
+      precioUnit: 75,
       descuento: null,
       precioTotal: 225
     }
 
-    ], {validate: true})
+    ],options, {validate: true})
   },
 
   async down (queryInterface, Sequelize) {
@@ -97,7 +98,9 @@ module.exports = {
     const {Op} = require('sequelize')
   await queryInterface.bulkDelete(options, {
     id: {
-      [Op.in] : [1, 2, 3, 4, 5, 6, 7]
+      [Op.in] : [1,
+        // 2, 3, 4, 5, 6, 7
+      ]
     }
   }, {});
 

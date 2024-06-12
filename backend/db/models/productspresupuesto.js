@@ -14,14 +14,55 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ProductsPresupuesto.init({
-    productId: DataTypes.INTEGER,
-    presupuestoId: DataTypes.INTEGER,
-    codigo: DataTypes.STRING,
-    descripcion: DataTypes.STRING,
-    cantidad: DataTypes.INTEGER,
-    precioUnit: DataTypes.FLOAT,
-    descuento: DataTypes.INTEGER,
-    precioTotal: DataTypes.FLOAT
+    productId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Products',
+        key: 'id'
+      },
+      // allowNull: true
+    },
+    presupuestoId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Presupuestos',
+        key: 'id'
+      },
+      allowNull: false
+    },
+    codigo: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isNumeric: true
+      }
+    },
+    precioUnit: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isFloat: true
+      }
+    },
+    descuento: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    precioTotal: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isFloat: true
+      }
+    }
   }, {
     sequelize,
     modelName: 'ProductsPresupuesto',
