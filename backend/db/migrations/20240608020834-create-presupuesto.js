@@ -16,6 +16,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      codigo: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true
+      },
       vendedor: {
         type: Sequelize.STRING
       },

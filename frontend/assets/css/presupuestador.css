@@ -109,13 +109,21 @@
 .below-iva{
     display: grid;
     grid-template-areas: "b b b b b b iva";
+    position: relative;
 }
 .b {
     grid-area: b;
     width: 100%;
 }
 .iva-discriminado-class {
+    position:relative;
+    right: -12px;
+    top: 0;
+    width: 150px;
     margin-left: 68%;
+    /* display: grid; */
+    /* max-width: min-content; */
+    /* min-width: min-content; */
     margin-top: 2px;
     font-size: 11px;
     font-weight:400;
@@ -127,6 +135,7 @@
     grid-area: iva;
     text-align: left;
     padding-left: 1px;
+    margin: 0;
 }
 
 .hidden{
@@ -152,8 +161,15 @@
     color: #fff;
     border: none;
     border-radius: 4px;
+    
 }
 
 .print-button button:hover {
     background-color: #0056b3;
+}
+
+.telefono-cliente-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

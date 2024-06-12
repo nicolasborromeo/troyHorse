@@ -69,12 +69,13 @@ app.use(routes) // connect all the routes
 
 //ERROR HANDLER 404
 //this first one created the error and forwards it to the middleware handler
-app.use((_req, _res, next) => {
+app.use((_req, res, next) => {
     const err = new Error("The requested resource couldn't be found.");
     err.title = "Resource Not Found";
     err.errors = { message: "The requested resource couldn't be found." };
     err.status = 404;
     next(err);
+    // res.status(404).send(`<h1>404 Not Found</h1>`)
 });
 
 //Sequelize VALIDATOR ERROR CREATER:

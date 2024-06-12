@@ -9,36 +9,15 @@
 //return the number id of the last budget / potentitally its going to be ana ytribute on the budget later
 
 //CARRY OUT THE PLAN
-let fetchLast = async () => {
-try {
-    // Fetch products based on search parameters
-    const response = await fetch(`/api/presupuestos/ultimo`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }).then(res => res.json())
-    // .then(data => {
-    //     return data
-    // });
-} catch (error) {
-    console.error('Error fetching products:', error);
-}
-}
-
-// let getId = async() => {
-//     let ultimoPresupuesto = await Presupuesto.findAll({
-//         order:[['id', 'DESC']],
-//         limit: 1
-//     })
-//     return ultimoPresupuesto + 1
-// }
 
 
 
-document.querySelector('.print-button button').addEventListener('click', () => {
+
+document.querySelector('.print-button button').addEventListener('click', async (event) => {
+    event.preventDefault();
+    await fetchLast()
     let title = document.querySelector('.page-title')
-    title.innerText ='THFlooring Inc.'
+    title.innerText = 'THFlooring Inc.'
 
     cleanTable()
     replaceInputs()
@@ -47,22 +26,20 @@ document.querySelector('.print-button button').addEventListener('click', () => {
 
 });
 
-window.addEventListener('afterprint', function() {
+window.addEventListener('afterprint', function () {
     restoreInputs();
 });
 
 let originalInputs = []
-let replaceInputs = async () => {
-    let h3 = document.getElementById('vendedor-h3')
-    h3.innerHTML=`PRESUPUESTO <span>*No valido como factura</span>`
+let replaceInputs = () => {
 
     let inputs = document.querySelectorAll('input')
     inputs.forEach(input => {
         originalInputs.push(input)
         let span = document.createElement('span')
-        if(input.type === 'checkbox') {
+        if (input.type === 'checkbox') {
             input.checked === true ? span.textContent = 'Si' : span.textContent = 'No'
-        } else{
+        } else {
             span.textContent = input.value
         }
         span.classList = 'input-span'
@@ -72,11 +49,16 @@ let replaceInputs = async () => {
 }
 
 let restoreInputs = () => {
-    let h3 = document.getElementById('vendedor-h3')
+    //RESTORE VENDEDOR
+    let infoContainer = document.querySelector('.presupuesto-info-container')
+    let h3 = document.createElement('h3')
+    h3.id = 'vendedor-h3'
     h3.innerText = 'VENDEDOR'
+    infoContainer.parentNode.replaceChild(h3, infoContainer)
+    //RESTORE TABLE INPUTS
     let spans = document.querySelectorAll('.input-span')
     spans.forEach((span, index) => {
-        if(originalInputs[index]) {
+        if (originalInputs[index]) {
             span.parentNode.replaceChild(originalInputs[index], span)
         }
     })
@@ -87,8 +69,34 @@ let restoreInputs = () => {
 let cleanTable = () => {
     let tableBody = document.querySelectorAll("input[name=p-total")
     tableBody.forEach(row => {
-        console.log(row.value)
         row.value == 0.00 ? row.value = null : row.value
     })
     return
+}
+
+
+let fetchLast = async () => {
+    try {
+        const response = await fetch(`/api/presupuestos/ultimo`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(res => res.json())
+        .then(data => {
+
+            let h3 = document.getElementById('vendedor-h3')
+            let infoContainer = document.createElement('div')
+            infoContainer.className = 'presupuesto-info-container'
+            infoContainer.innerHTML = `<div class="presupuesto-header">
+                                <h2>PRESUPUESTO</h2>
+                                <span class="presupuesto-num" id="presupuesto-num-span">#000-${data.codigo + 1}</span>
+                                </div>
+                                <span class="presupuesto-subtext">*No valido como factura</span>`
+            h3.parentNode.replaceChild(infoContainer, h3)
+            return
+        });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
 }
