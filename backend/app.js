@@ -14,7 +14,7 @@ const path =require('path')
 const { enviroment } = require('./config');
 const isProduction = enviroment === 'production'; // this will be true if the enviroment in config/index.js is set to production. otherwise e.g. if we are in development it will be false
 
-const { sendToLogin } = require('./utils/auth')
+const { restoreUser, sendToLogin } = require('./utils/auth')
 
 const app = express();
 
@@ -61,11 +61,14 @@ request comes from your site and not an unauthorized site.
 
 //------------------------END OF PRE-REQUEST MIDDLEWARE--------------------------------//
 
-// Serve static files from the 'frontend' directory
+
+
+app.get('/', restoreUser, sendToLogin, (req, res) => { // catch this before serving the static files.
+    res.redirect('/presupuestador');
+});
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-
-const routes = require('./routes'); //import to add the routes
+const routes = require('./routes'); 
 app.use(routes) // connect all the routes
 
 
