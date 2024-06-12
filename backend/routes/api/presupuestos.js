@@ -1,6 +1,22 @@
 const router = require('express').Router();
-// const sequelize = require('sequelize')
-const { Product, Presupuesto, ProductsPresupuesto, sequelize} = require('../../db/models')
+const { Product, Presupuesto, ProductsPresupuesto, sequelize } = require('../../db/models')
+
+//middleware
+const checkDuplicate = async(req, res, next) => {
+    const {codigoPresupuesto} = req.body
+    let presuInDatabase = await Presupuesto.findOne({
+        where: {codigo : codigoPresupuesto}
+    })
+
+    if(presuInDatabase) {
+        let err = new Error('Invoice already exists in database');
+        err.status = 500
+        err.message = 'Invoice already exists in database'
+        return next(err)
+    }
+    return next();
+}
+
 
 router.get('/ultimo', async (req, res, next) => {
     let ultimo = await Presupuesto.findAll({
@@ -20,27 +36,19 @@ router.get('/', async (req, res, next) => {
 
 
 
-router.post('/', async (req, res, next) => {
-    // console.log('BODY FROM .POST PRESUPUESTOS ROUTER', req.body)
-
+router.post('/', checkDuplicate, async (req, res, next) => {
     //GET DATA FROM BODY
     const { vendedor, telVendedor, fecha, fechaVenc, condicion,
         cuit, telCliente, comentario, total } = req.body
-        let iva = req.body.iva
-        if(iva === 'on') {
-            iva = true
-        } else iva = false
-        console.log('TOTAL', total)
+    let iva = req.body.iva
+    iva = (iva === 'on') ? true : false;
+
 
     //future cliente model but now is part of presupuesto
     const { cliente, direccion, provincia, loc, cp } = req.body
     //Codigo de presupuesto
-    const codigoPresupuesto = await Presupuesto.getCodigo() + 1
+    const codigoPresupuesto = req.body.codigoPresupuesto
 
-    //CHECK IF THE BUDGET HAS ALREADY BEEN SUBMITED //thorw error to avoid duplicates
-    //   if(codigoPresupuesto) {
-    //     let err = new Error()
-    // }
 
 
     // CREAR PRESUPUESTO IN DATABASE
@@ -98,14 +106,13 @@ router.post('/', async (req, res, next) => {
             reqProduct['codigo'] = prodAttributes.codigo
             reqProduct['descripcion'] = prodAttributes.descripcion
         }
-        //this console loge PROBES that this if else statement is passing (when passing a null product and one in the database)
+        //this console loge PROVES that this if else statement is passing (when passing a null product and one in the database)
         // console.log(productInDb, '============================')
         // console.log(reqProduct)
 
 
         //create each ProductsPresupuesto
-
-        let newProductsPresupuesto = await ProductsPresupuesto.create({
+        await ProductsPresupuesto.create({
             productId: parseInt(reqProduct['id']),
             presupuestoId: parseInt(presupuestoId),
             codigo: reqProduct['codigo'],
@@ -118,9 +125,9 @@ router.post('/', async (req, res, next) => {
     })
 
 
-    let nuevoPresupuestoCompleto = await Presupuesto.findAll({
+    let presupuestoCompleto = await Presupuesto.findAll({
         where: { codigo: codigoPresupuesto },
-        include:  {
+        include: {
             model: Product,
             as: 'Products', // Ensure this matches the alias defined in your association
             through: { attributes: [] } // If you want to exclude the junction table attributes
@@ -128,11 +135,11 @@ router.post('/', async (req, res, next) => {
     })
 
 
-    console.log(nuevoPresupuestoCompleto)
+    // console.log(presupuestoCompleto)
 
     res.status(200).json({
-            message: "Successfully stored in the Database",
-            NuevoPresupuesto: nuevoPresupuestoCompleto
+        message: "Successfully stored in the Database",
+        NuevoPresupuesto: presupuestoCompleto
     })
 
 })

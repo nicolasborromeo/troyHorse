@@ -1,8 +1,14 @@
 'use strict';
+
+let options = {}
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('clientes', {
+    await queryInterface.createTable('Clientes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,9 +44,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('clientes');
+    options.tableName = 'Clientes'
+    await queryInterface.dropTable(options);
   }
 };

@@ -1,3 +1,22 @@
+let codigoPresupuesto = null
+
+//FETCH LAST
+let fetchLastCode = async () => {
+    try {
+        const response = await fetch(`/api/presupuestos/ultimo`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        const data = await response.json();
+        return codigoPresupuesto = data.codigo + 1;
+    } catch (error) {
+        console.error('Error fetching last Presupuesto:', error);
+    }
+}
+
+fetchLastCode()
 
 //SET CURRENT DATE
 const setDates = () => {
@@ -56,19 +75,15 @@ function calculateTotal() {
 }
 
 async function handleFromSubmit() {
+    // await fetchLastCode()
     let productsData = getProducts()
 
     const formData = new FormData(presupuestador);
-    // let entries = formData.entries()
-    // entries.forEach(element => {
-    //     console.log(element)
-    // });
-    // console.log('FORM DATA----',)
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
 
-    // const fecha = formData.get('fecha');
+;
     const fechaVenc = formData.get('fecha-venc');
 
     const cliente = formData.get('cliente');
@@ -104,20 +119,32 @@ async function handleFromSubmit() {
         ivaDisc: ivaDisc,
         productos: productsData,
         comentario: comentario,
-        total: total
-    }
+        total: total,
+        codigoPresupuesto: codigoPresupuesto
+    };
+
 
     try {
-        // Fetch products based on search parameters
         const response = await fetch(`/api/presupuestos/`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body)
-        }).then(res => res.json()).then(data => console.log(data));
+        })
+        const responseData = await response.json();
+
+        // Check if the response was successful
+        if (response.ok) {
+            // If successful, show a success alert
+            alert(responseData.message); // Display success message
+            // You can also do further actions like clearing form fields, etc.
+        } else {
+            // If not successful, show an error alert
+            alert(`Error: ${responseData.message}`); // Display error message
+        }
     } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error saving in the database:', error);
     }
 }
 
@@ -163,3 +190,79 @@ guardar.addEventListener('click', async (event) => {
     event.preventDefault();
     handleFromSubmit()
 })
+
+
+//---------------------------------------------------------//
+//========================PRINT============================//
+
+document.querySelector('.print-button button').addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    setCode()
+    cleanTable()
+    replaceInputs()
+
+    window.print();
+
+});
+
+window.addEventListener('afterprint', function () {
+    restoreInputs();
+});
+
+let originalInputs = []
+let replaceInputs = () => {
+
+    let inputs = document.querySelectorAll('input')
+    inputs.forEach(input => {
+        originalInputs.push(input)
+        let span = document.createElement('span')
+        if (input.type === 'checkbox') {
+            input.checked === true ? span.textContent = 'Si' : span.textContent = 'No'
+        } else {
+            span.textContent = input.value
+        }
+        span.classList = 'input-span'
+        input.parentNode.replaceChild(span, input)
+    })
+    return
+}
+
+let restoreInputs = () => {
+    //RESTORE VENDEDOR
+    let infoContainer = document.querySelector('.presupuesto-info-container')
+    let h3 = document.createElement('h3')
+    h3.id = 'vendedor-h3'
+    h3.innerText = 'VENDEDOR'
+    infoContainer.parentNode.replaceChild(h3, infoContainer)
+    //RESTORE TABLE INPUTS
+    let spans = document.querySelectorAll('.input-span')
+    spans.forEach((span, index) => {
+        if (originalInputs[index]) {
+            span.parentNode.replaceChild(originalInputs[index], span)
+        }
+    })
+    return
+}
+
+
+let cleanTable = () => {
+    let tableBody = document.querySelectorAll("input[name=p-total")
+    tableBody.forEach(row => {
+        row.value == 0.00 ? row.value = null : row.value
+    })
+    return
+}
+
+let setCode =() => {
+    let h3 = document.getElementById('vendedor-h3')
+    let infoContainer = document.createElement('div')
+    infoContainer.className = 'presupuesto-info-container'
+    infoContainer.innerHTML = `<div class="presupuesto-header">
+                        <h2>PRESUPUESTO</h2>
+                        <span class="presupuesto-num" id="presupuesto-num-span">#000-${codigoPresupuesto}</span>
+                        </div>
+                        <span class="presupuesto-subtext">*No valido como factura</span>`
+    h3.parentNode.replaceChild(infoContainer, h3)
+    return
+}

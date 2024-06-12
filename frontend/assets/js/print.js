@@ -1,24 +1,10 @@
 
 
-//PROBLEM
-//I NEED TO GET THE BUDGET NUMBER
-//the busget is in the database I can ony get it by fetch requests
-
-//PLAN
-//make a fetch to presupuestos/last
-//return the number id of the last budget / potentitally its going to be ana ytribute on the budget later
-
-//CARRY OUT THE PLAN
-
-
-
-
 document.querySelector('.print-button button').addEventListener('click', async (event) => {
     event.preventDefault();
-    await fetchLast()
-    let title = document.querySelector('.page-title')
-    title.innerText = 'THFlooring Inc.'
 
+    // await fetchLast() // change this
+    setCode()
     cleanTable()
     replaceInputs()
 
@@ -74,29 +60,41 @@ let cleanTable = () => {
     return
 }
 
-
-let fetchLast = async () => {
-    try {
-        const response = await fetch(`/api/presupuestos/ultimo`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            }
-        }).then(res => res.json())
-        .then(data => {
-
-            let h3 = document.getElementById('vendedor-h3')
-            let infoContainer = document.createElement('div')
-            infoContainer.className = 'presupuesto-info-container'
-            infoContainer.innerHTML = `<div class="presupuesto-header">
-                                <h2>PRESUPUESTO</h2>
-                                <span class="presupuesto-num" id="presupuesto-num-span">#000-${data.codigo + 1}</span>
-                                </div>
-                                <span class="presupuesto-subtext">*No valido como factura</span>`
-            h3.parentNode.replaceChild(infoContainer, h3)
-            return
-        });
-    } catch (error) {
-        console.error('Error fetching products:', error);
-    }
+let setCode =() => {
+    let h3 = document.getElementById('vendedor-h3')
+    let infoContainer = document.createElement('div')
+    infoContainer.className = 'presupuesto-info-container'
+    infoContainer.innerHTML = `<div class="presupuesto-header">
+                        <h2>PRESUPUESTO</h2>
+                        <span class="presupuesto-num" id="presupuesto-num-span">#000-${codigoPresupuesto}</span>
+                        </div>
+                        <span class="presupuesto-subtext">*No valido como factura</span>`
+    h3.parentNode.replaceChild(infoContainer, h3)
+    return
 }
+
+// let fetchLast = async () => {
+//     try {
+//         const response = await fetch(`/api/presupuestos/ultimo`, {
+//             method: 'GET',
+//             headers: {
+//                 "Content-Type": "application/json",
+//             }
+//         }).then(res => res.json())
+//         .then(data => {
+
+//             let h3 = document.getElementById('vendedor-h3')
+//             let infoContainer = document.createElement('div')
+//             infoContainer.className = 'presupuesto-info-container'
+//             infoContainer.innerHTML = `<div class="presupuesto-header">
+//                                 <h2>PRESUPUESTO</h2>
+//                                 <span class="presupuesto-num" id="presupuesto-num-span">#000-${data.codigo + 1}</span>
+//                                 </div>
+//                                 <span class="presupuesto-subtext">*No valido como factura</span>`
+//             h3.parentNode.replaceChild(infoContainer, h3)
+//             return
+//         });
+//     } catch (error) {
+//         console.error('Error fetching last Presupuesto:', error);
+//     }
+// }
