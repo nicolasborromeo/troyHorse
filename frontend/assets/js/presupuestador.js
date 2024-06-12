@@ -61,15 +61,23 @@ calculateTotal();
 let presupuestador = document.querySelector('.presupuestador-from')
 presupuestador.addEventListener('submit', async (event) => {
     event.preventDefault();
+    handleFromSubmit()
 
 
 
 
+
+})
+
+async function handleFromSubmit() {
     let productsData = getProducts()
-    console.log(productsData)
 
     const formData = new FormData(presupuestador);
-    // console.log('FORM DATA', formData)
+    // let entries = formData.entries()
+    // entries.forEach(element => {
+    //     console.log(element)
+    // });
+    // console.log('FORM DATA----',)
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
@@ -88,13 +96,6 @@ presupuestador.addEventListener('submit', async (event) => {
     const condicion = formData.get('condicion');
     const iva = formData.get('iva-incluido');
     const ivaDisc = formData.get('iva-discriminado');
-
-    // const codigo = formData.get('codigo');
-    // const descripcion = formData.get('descripcion');
-    // const cantidad = formData.get('cantidad');
-    // const precioUnit = formData.get('p-unitario');
-    // const descuento = formData.get('descuento');
-    // const precioTotal = formData.get('p-total');
 
     const comentario = formData.get('comentario');
     const total = formData.get('total');
@@ -116,12 +117,6 @@ presupuestador.addEventListener('submit', async (event) => {
         iva: iva,
         ivaDisc: ivaDisc,
         productos: productsData,
-        // codigo: codigo,
-        // descripcion: descripcion,
-        // cantidad: cantidad,
-        // precioUnit:precioUnit,
-        // descuento: descuento,
-        // precioTotal: precioTotal,
         comentario: comentario,
         total: total
     }
@@ -138,9 +133,7 @@ presupuestador.addEventListener('submit', async (event) => {
     } catch (error) {
         console.error('Error fetching products:', error);
     }
-
-})
-
+}
 
 function getProducts() {
 

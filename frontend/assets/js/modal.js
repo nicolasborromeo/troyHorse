@@ -20,6 +20,7 @@ let _populateTable = (data) => {
         row.classList.add('product-row'); // add a class to later iterate over
         row.dataset.product = JSON.stringify(product);
 
+        //CSS TO THE TABLE INSIDE DE MODAL + STORING selectedProduct
         row.addEventListener('click', () => {
             document.querySelectorAll('.product-row').forEach(row => {
                 row.classList.remove('selected-row') //if a row was selected now it will be unselected
