@@ -1,13 +1,22 @@
-// window.onclick((event)=> {event.preventDefault()})
 
 //SET CURRENT DATE
-let currentDate = new Date();
-let formattedDate = currentDate.toISOString().slice(0, 10);
-document.getElementById('fecha').value = formattedDate;
+const setDates = () => {
+    //Today's date
+    let currentDate = new Date();
+    let formattedDate = currentDate.toISOString().slice(0, 10);
+    document.getElementById('fecha').value = formattedDate;
+
+    //A month from now
+    let fechaVenc = new Date();
+    if (fechaVenc.getMonth() === 12) {
+        fechaVenc.setMonth(0);
+    } else {
+        fechaVenc.setMonth(fechaVenc.getMonth() + 1)
+    }
+    let vencimientoFormatted = fechaVenc.toISOString().slice(0, 10);
+    document.getElementById('fecha-venc').value = vencimientoFormatted;
+}
 //AUTO-CALUCLATE TOTAL
-document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], input[name="descuento"]').forEach(input => {
-    input.addEventListener('input', calculateTotal);
-});
 function calculateTotal() {
     const rows = document.querySelectorAll('#detalle-body tr');
     let total = 0;
@@ -19,7 +28,7 @@ function calculateTotal() {
 
         isNaN(discount) ? discount = 0 : discount
         let totalPrice = unitPrice * quantity * ((100 - discount) / 100);
-        if (isNaN(totalPrice)) {totalPrice = 0;}
+        if (isNaN(totalPrice)) { totalPrice = 0; }
         row.querySelector('input[name="p-total"]').value = totalPrice.toFixed(2);
 
         total += totalPrice;
@@ -35,9 +44,9 @@ function calculateTotal() {
 
     let div = document.getElementById("iva-discriminado-div") //DIV
     const ivaDiscriminado = document.getElementById('iva-discriminado').checked; //BUTTON
-    if(ivaDiscriminado){
+    if (ivaDiscriminado) {
         div.className = 'iva-discriminado-class'
-        div.innerHTML=`<p><strong>IVA:</strong> ${iva}</p>`
+        div.innerHTML = `<p><strong>IVA:</strong> ${iva}</p>`
     } else {
         div.className = 'hidden'
     }
@@ -45,29 +54,6 @@ function calculateTotal() {
     const totalInput = document.getElementById('total');
     totalInput.value = total.toFixed(2);
 }
-// Add event listener to checkboxes for IVA options
-document.getElementById('iva-incluido').addEventListener('change', calculateTotal);
-document.getElementById('iva-discriminado').addEventListener('change', calculateTotal);
-// Calculate the total initially
-calculateTotal();
-
-
-
-
-
-
-
-
-let presupuestador = document.querySelector('.presupuestador-from')
-presupuestador.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    handleFromSubmit()
-
-
-
-
-
-})
 
 async function handleFromSubmit() {
     let productsData = getProducts()
@@ -151,8 +137,29 @@ function getProducts() {
             productRow[input.name] = input.value
         })
         //if there's data, then push the row array to the products array
-        if(productRow.descripcion) products.push(productRow)
+        if (productRow.descripcion) products.push(productRow)
     })
-        //when it's done return
-        return products;
+    //when it's done return
+    return products;
 }
+
+//add evenet listeners to the detalle input fields
+document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], input[name="descuento"]').forEach(input => {
+    input.addEventListener('input', calculateTotal);
+});
+
+// Add event listener to checkboxes for IVA options
+document.getElementById('iva-incluido').addEventListener('change', calculateTotal);
+document.getElementById('iva-discriminado').addEventListener('change', calculateTotal);
+
+// Calculate the total and set the datesinitially
+setDates()
+calculateTotal();
+
+
+let presupuestador = document.querySelector('.presupuestador-from')
+let guardar = document.getElementById('guardar-button')
+guardar.addEventListener('click', async (event) => {
+    event.preventDefault();
+    handleFromSubmit()
+})

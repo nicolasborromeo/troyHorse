@@ -13,7 +13,8 @@
 
 
 
-document.querySelector('.print-button button').addEventListener('click', async () => {
+document.querySelector('.print-button button').addEventListener('click', async (event) => {
+    event.preventDefault();
     await fetchLast()
     let title = document.querySelector('.page-title')
     title.innerText = 'THFlooring Inc.'

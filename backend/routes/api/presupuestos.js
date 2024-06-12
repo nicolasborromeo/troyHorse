@@ -120,10 +120,17 @@ router.post('/', async (req, res, next) => {
     // return res.json(newProductsPresupuesto)
 
 
-    let nuevoPresupuestoCompleto = await Presupuesto.findOne({
+    let nuevoPresupuestoCompleto = await Presupuesto.findAll({
         where: { codigo: codigoPresupuesto },
-        include: { model: Product}
+        include:  {
+            model: Product,
+            as: 'Products', // Ensure this matches the alias defined in your association
+            through: { attributes: [] } // If you want to exclude the junction table attributes
+        }
     })
+
+
+    console.log(nuevoPresupuestoCompleto)
 
     res.status(200).json({
             message: "Successfully stored in the Database",
