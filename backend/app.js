@@ -14,6 +14,8 @@ const path =require('path')
 const { enviroment } = require('./config');
 const isProduction = enviroment === 'production'; // this will be true if the enviroment in config/index.js is set to production. otherwise e.g. if we are in development it will be false
 
+const { sendToLogin } = require('./utils/auth')
+
 const app = express();
 
 app.use(morgan('dev')); //dev is a format that morgan has which provides the followinginformation method: GET url: / statuscode: 200 loadingtime: in ms contentLength: 12
@@ -59,9 +61,9 @@ request comes from your site and not an unauthorized site.
 
 //------------------------END OF PRE-REQUEST MIDDLEWARE--------------------------------//
 
-
 // Serve static files from the 'frontend' directory
 app.use(express.static(path.join(__dirname, '../frontend')));
+
 
 const routes = require('./routes'); //import to add the routes
 app.use(routes) // connect all the routes
@@ -81,6 +83,7 @@ app.use((_req, res, next) => {
 //Sequelize VALIDATOR ERROR CREATER:
 //purpose: to catch sequelize errors and format them before sending the error response
 const { ValidationError } = require('sequelize');
+const { send } = require('process');
 app.use((err, _req, _res, next) => {
     if (err instanceof ValidationError) { //if true, this is a validation error from the sequelize package
         let errors = {} //create errors object
