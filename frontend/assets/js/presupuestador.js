@@ -82,10 +82,7 @@ async function handleFromSubmit() {
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
-    // console.log('telVendedor', telVendedor)
-    // console.log('tel typeof string?', typeof telVendedor === 'string')
 
-;
     const fechaVenc = formData.get('fecha-venc');
 
     const cliente = formData.get('cliente');
@@ -107,7 +104,7 @@ async function handleFromSubmit() {
 
     let body = {
         vendedor: vendedor,
-        telVendedor: parseInt(telVendedor),
+        telVendedor: telVendedor,
         fecha: new Date().toISOString().slice(0, 10),
         fechaVenc: fechaVenc,
         cliente: cliente,
