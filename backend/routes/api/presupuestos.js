@@ -55,7 +55,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
     await Presupuesto.create({
         codigo: codigoPresupuesto,
         vendedor: vendedor,
-        telVendedor: telVendedor,
+        telVendedor: telVendedor.toString(),
         fecha: fecha,
         fechaVenc: fechaVenc,
         cliente: cliente,
@@ -125,21 +125,21 @@ router.post('/', checkDuplicate, async (req, res, next) => {
     })
 
 
-    let presupuestoCompleto = await Presupuesto.findAll({
-        where: { codigo: codigoPresupuesto },
-        include: {
-            model: Product,
-            as: 'Products', // Ensure this matches the alias defined in your association
-            through: { attributes: [] } // If you want to exclude the junction table attributes
-        }
-    })
+    // let presupuestoCompleto = await Presupuesto.findAll({
+    //     where: { codigo: codigoPresupuesto },
+    //     include: {
+    //         model: Product,
+    //         as: 'Products', // Ensure this matches the alias defined in your association
+    //         through: { attributes: [] } // If you want to exclude the junction table attributes
+    //     }
+    // })
 
 
     // console.log(presupuestoCompleto)
 
     res.status(200).json({
         message: "Successfully stored in the Database",
-        NuevoPresupuesto: presupuestoCompleto
+        // NuevoPresupuesto: presupuestoCompleto
     })
 
 })

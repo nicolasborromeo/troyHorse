@@ -44,7 +44,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     telVendedor: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        isIntString(value){
+          if(typeof value !== 'string') {
+            throw new Error('telVendedor is not a string')
+          }
+        }
+      }
     },
     fecha: {
       type: DataTypes.DATE
@@ -69,9 +76,6 @@ module.exports = (sequelize, DataTypes) => {
     condicion: {
       type: DataTypes.STRING
     },
-    // descuento: {
-    //   type: DataTypes.INTEGER
-    // },
     iva: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
