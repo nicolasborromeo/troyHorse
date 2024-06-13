@@ -104,7 +104,7 @@ async function handleFromSubmit() {
 
     let body = {
         vendedor: vendedor,
-        telVendedor: telVendedor,
+        telVendedor: telVendedor.toString(),
         fecha: new Date().toISOString().slice(0, 10),
         fechaVenc: fechaVenc,
         cliente: cliente,
