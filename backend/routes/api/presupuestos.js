@@ -56,7 +56,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
     await Presupuesto.create({
         codigo: codigoPresupuesto,
         vendedor: vendedor,
-        telVendedor: telVendedor,
+        telVendedor: telVendedor.toString(),
         fecha: fecha,
         fechaVenc: fechaVenc,
         cliente: cliente,
