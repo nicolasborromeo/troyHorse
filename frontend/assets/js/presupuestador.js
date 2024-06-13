@@ -82,14 +82,15 @@ async function handleFromSubmit() {
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
-    let telVenString = telVendedor.toString()
+    console.log('telVendedor', telVendedor)
+    console.log('tel typeof string?', typeof telVendedor === 'string')
 
 ;
     const fechaVenc = formData.get('fecha-venc');
 
     const cliente = formData.get('cliente');
     const telCliente = formData.get('telCliente');
-    let telCliString = telCliente.toString()
+
     const direccion = formData.get('direccion');
     const provincia = formData.get('provincia');
     const loc = formData.get('loc');
@@ -106,11 +107,11 @@ async function handleFromSubmit() {
 
     let body = {
         vendedor: vendedor,
-        telVendedor: telVenString,
+        telVendedor: parseInt(telVendedor),
         fecha: new Date().toISOString().slice(0, 10),
         fechaVenc: fechaVenc,
         cliente: cliente,
-        telCliente: telCliString,
+        telCliente: telCliente,
         direccion: direccion,
         provincia: provincia,
         loc: loc,
