@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     telVendedor: {
-      type: DataTypes.STRING(15)
+      type: DataTypes.STRING
     },
     fecha: {
       type: DataTypes.DATE
