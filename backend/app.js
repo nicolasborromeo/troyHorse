@@ -64,11 +64,11 @@ request comes from your site and not an unauthorized site.
 
 
 app.get('/', restoreUser, sendToLogin, (req, res) => { // catch this before serving the static files.
-    res.redirect('/presupuestador');
+    res.redirect('/home');
 });
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-const routes = require('./routes'); 
+const routes = require('./routes');
 app.use(routes) // connect all the routes
 
 

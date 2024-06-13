@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       telVendedor: {
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       fecha: {
         type: Sequelize.DATE

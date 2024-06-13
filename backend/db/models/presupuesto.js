@@ -44,14 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     telVendedor: {
-      type: DataTypes.STRING,
-      validate: {
-        isIntString(value){
-          if(typeof value !== 'string') {
-            throw new Error('telVendedor is not a string')
-          }
-        }
-      }
+      type: DataTypes.BIGINT,
     },
     fecha: {
       type: DataTypes.DATE
