@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       telVendedor: {
-        type: Sequelize.BIGINT
+        type: Sequelize.STRING
       },
       fecha: {
         type: Sequelize.DATE
@@ -42,9 +42,6 @@ module.exports = {
       },
       condicion: {
         type: Sequelize.STRING
-      },
-      descuento: {
-        type: Sequelize.INTEGER
       },
       iva: {
         type: Sequelize.BOOLEAN,
