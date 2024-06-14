@@ -99,26 +99,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
         let prodAttributes
         productInDb ? prodAttributes = productInDb.dataValues : undefined;
 
-        //If the reqProduct  doens't exist assing codigo and Id to null
-        // if (!productInDb) {
-        //     reqProduct['codigo'] = null
-        //     reqProduct['id'] = null
-        //     //otherwise check that the values match
-        // } else {
-            // if (productInDb && !reqProduct.codigo === prodAttributes.codigo ||
-            //     !reqProduct.descripcion === prodAttributes.descripcion) {
-            //     let err = new Error('Not Matching');
-            //     err.status = 500
-            //     err.message = "Values of product not matching in the database"
-            //     err.errors = [{ requestValues: "codigo o descripcion distintas al producto en la base de datos" }]
-            //     return next(err)
-            // } else {
-            //     reqProduct['id'] = prodAttributes.id
-            //     reqProduct['codigo'] = prodAttributes.codigo
-            //     reqProduct['descripcion'] = prodAttributes.descripcion
-            // }
-
-        // }
+  
         let parsedDescuento = reqProduct['descuento'] === '' ? 0 : parseInt(reqProduct['descuento']);
         let parsedCantidad = reqProduct['cantidad'] ? Number(reqProduct['cantidad']) : 1
         let parsedTotal = reqProduct['p-total'] ? parseFloat(reqProduct['p-total']) : 0

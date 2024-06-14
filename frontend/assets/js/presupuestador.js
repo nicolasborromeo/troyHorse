@@ -60,7 +60,6 @@ function calculateTotal() {
     const totalInput = document.getElementById('total');
     totalInput.value = total.toFixed(2);
 }
-
 //POST
 async function handleFromSubmit() {
 
@@ -141,20 +140,6 @@ async function handleFromSubmit() {
     }
 }
 //Helper functions inside HandleFormSubmit
-let fetchLastCode = async () => {
-    try {
-        const response = await fetch(`/api/presupuestos/ultimo`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        const data = await response.json();
-        return codigoPresupuesto = data.codigo + 1;
-    } catch (error) {
-        console.error('Error fetching last Presupuesto:', error);
-    }
-}
 function getProducts() {
 
     //GO TO DETALLE TABLE
@@ -176,9 +161,26 @@ function getProducts() {
     //when it's done return
     return products;
 }
+//get new code for presupuesto on each load
+let fetchLastCode = async () => {
+    try {
+        const response = await fetch(`/api/presupuestos/ultimo`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        const data = await response.json();
+        return codigoPresupuesto = data.codigo + 1;
+    } catch (error) {
+        console.error('Error fetching last Presupuesto:', error);
+    }
+}
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchLastCode();
+});
 
-
-
+setDates()
 
 document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], input[name="descuento"]').forEach(input => {
     input.addEventListener('input', calculateTotal);
@@ -195,9 +197,9 @@ guardar.addEventListener('click', async (event) => {
 
 
 // Calculate the total and set the datesinitially
-setDates()
+
 // calculateTotal();
-fetchLastCode()
+
 
 //---------------------------------------------------------//
 //========================PRINT============================//
