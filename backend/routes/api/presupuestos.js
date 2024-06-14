@@ -43,20 +43,15 @@ router.post('/', checkDuplicate, async (req, res, next) => {
     let iva = req.body.iva
     iva = (iva === 'on') ? true : false;
 
-    // console.log('FROM POST server side, telVendedor', telVendedor)
-    // console.log('FROM POST server side, telVendedor type of number?', typeof telVendedor === 'number')
-    //future cliente model but now is part of presupuesto
     const { cliente, direccion, provincia, loc, cp } = req.body
-    //Codigo de presupuesto
     const codigoPresupuesto = req.body.codigoPresupuesto
-
 
 
     // CREAR PRESUPUESTO IN DATABASE
     await Presupuesto.create({
         codigo: codigoPresupuesto,
         vendedor: vendedor,
-        telVendedor: telVendedor.toString(),
+        telVendedor: telVendedor,
         fecha: fecha,
         fechaVenc: fechaVenc,
         cliente: cliente,

@@ -1,22 +1,5 @@
 let codigoPresupuesto = null
 
-//FETCH LAST
-let fetchLastCode = async () => {
-    try {
-        const response = await fetch(`/api/presupuestos/ultimo`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        const data = await response.json();
-        return codigoPresupuesto = data.codigo + 1;
-    } catch (error) {
-        console.error('Error fetching last Presupuesto:', error);
-    }
-}
-
-fetchLastCode()
 
 //SET CURRENT DATE
 const setDates = () => {
@@ -75,29 +58,24 @@ function calculateTotal() {
 }
 
 async function handleFromSubmit() {
-    // await fetchLastCode()
+    await fetchLastCode()
     let productsData = getProducts()
 
     const formData = new FormData(presupuestador);
 
     const vendedor = formData.get('representante');
     const telVendedor = formData.get('telVendedor');
-
     const fechaVenc = formData.get('fecha-venc');
-
     const cliente = formData.get('cliente');
     const telCliente = formData.get('telCliente');
-
     const direccion = formData.get('direccion');
     const provincia = formData.get('provincia');
     const loc = formData.get('loc');
     const cp = formData.get('cp');
     const cuit = formData.get('cuit');
-
     const condicion = formData.get('condicion');
     const iva = formData.get('iva-incluido');
     const ivaDisc = formData.get('iva-discriminado');
-
     const comentario = formData.get('comentario');
     const total = formData.get('total');
 
@@ -180,26 +158,44 @@ function getProducts() {
     return products;
 }
 
+//FETCH LAST
+let fetchLastCode = async () => {
+    try {
+        const response = await fetch(`/api/presupuestos/ultimo`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        const data = await response.json();
+        return codigoPresupuesto = data.codigo + 1;
+    } catch (error) {
+        console.error('Error fetching last Presupuesto:', error);
+    }
+}
+
+
 //add evenet listeners to the detalle input fields
 document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], input[name="descuento"]').forEach(input => {
     input.addEventListener('input', calculateTotal);
 });
-
 // Add event listener to checkboxes for IVA options
 document.getElementById('iva-incluido').addEventListener('change', calculateTotal);
 document.getElementById('iva-discriminado').addEventListener('change', calculateTotal);
 
-// Calculate the total and set the datesinitially
-setDates()
-calculateTotal();
-
-
+// Guardar Button
 let presupuestador = document.querySelector('.presupuestador-from')
 let guardar = document.getElementById('guardar-button')
 guardar.addEventListener('click', async (event) => {
     event.preventDefault();
     handleFromSubmit()
 })
+
+
+// Calculate the total and set the datesinitially
+setDates()
+calculateTotal();
+
 
 
 //---------------------------------------------------------//
