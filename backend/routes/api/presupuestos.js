@@ -73,7 +73,8 @@ router.post('/', checkDuplicate, async (req, res, next) => {
     const { productos } = req.body
     productos.forEach(async reqProduct => {
 
-        reqProduct['descuento'] === '' ? null : reqProduct['descuento']
+        const descuento = reqProduct['descuento'] === '' ? null : reqProduct['descuento'];
+
 
         const productInDb = await Product.findOne({
             where: { codigo: reqProduct.codigo },
@@ -106,18 +107,25 @@ router.post('/', checkDuplicate, async (req, res, next) => {
         // console.log(productInDb, '============================')
         // console.log(reqProduct)
 
-
-        //create each ProductsPresupuesto
+    try {
         await ProductsPresupuesto.create({
             productId: parseInt(reqProduct['id']),
             presupuestoId: parseInt(presupuestoId),
-            codigo: reqProduct['codigo'],
+            codigo: reqProduct['codigo'].toString(),
             descripcion: reqProduct['descripcion'],
             cantidad: parseInt(reqProduct['cantidad']),
             precioUnit: parseFloat(reqProduct['p-unitario']),
             descuento: reqProduct['descuento'],
             precioTotal: parseFloat(reqProduct['p-total'])
         })
+
+    } catch (error) {
+        console.error(error.status, error.message)
+        next(error)
+        // res.status(error.status).json(error.message)
+    }
+        //create each ProductsPresupuesto
+
     })
 
 

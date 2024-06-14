@@ -36,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     medidasType: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isUppercase: true,
-        len: [2,2],
-        isIn: [['M2', 'UN', 'ML']]
-      }
+      // validate: {
+      //   isUppercase: true,
+      //   len: [2,3],
+      //   isIn: [['M2', 'UN', 'ML', 'LTS', 'KG']]
+      // }
     },
     costo: {
       type: DataTypes.FLOAT
