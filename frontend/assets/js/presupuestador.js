@@ -176,7 +176,7 @@ function getProducts() {
     //when it's done return
     return products;
 }
-
+await fetchLastCode()
 
 
 
@@ -197,7 +197,9 @@ guardar.addEventListener('click', async (event) => {
 // Calculate the total and set the datesinitially
 setDates()
 // calculateTotal();
-fetchLastCode()
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchLastCode();
+});
 
 //---------------------------------------------------------//
 //========================PRINT============================//
