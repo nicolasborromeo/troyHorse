@@ -26,8 +26,11 @@ function calculateTotal() {
     const rows = document.querySelectorAll('#detalle-body tr');
     rows.forEach(row => {
         let quantity = parseInt(row.querySelector('input[name="cantidad"]').value);
+        if(quantity === NaN || quantity === '') {
+            row.querySelector('input[name="cantidad"]').value = 1
+        }
         let discount = parseInt(row.querySelector('input[name="descuento"]').value);
-        const unitPrice = parseFloat(row.querySelector('input[name="p-unitario"]').value);
+        let unitPrice = parseFloat(row.querySelector('input[name="p-unitario"]').value);
 
         isNaN(discount) ? discount = 0 : discount
         let totalPrice = unitPrice * quantity * ((100 - discount) / 100);
@@ -60,7 +63,7 @@ function calculateTotal() {
 
 //POST
 async function handleFromSubmit() {
-    await fetchLastCode()
+
     let productsData = getProducts()
 
     const formData = new FormData(presupuestador);
@@ -193,9 +196,8 @@ guardar.addEventListener('click', async (event) => {
 
 // Calculate the total and set the datesinitially
 setDates()
-calculateTotal();
-
-
+// calculateTotal();
+fetchLastCode()
 
 //---------------------------------------------------------//
 //========================PRINT============================//
