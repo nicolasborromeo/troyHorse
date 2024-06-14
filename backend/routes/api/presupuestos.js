@@ -123,11 +123,11 @@ router.post('/', checkDuplicate, async (req, res, next) => {
         let parsedCantidad = reqProduct['cantidad'] ? Number(reqProduct['cantidad']) : 1
         let parsedTotal = reqProduct['p-total'] ? parseFloat(reqProduct['p-total']) : 0
         let parsedPrecio = reqProduct['p-unitario'] ? parseFloat(reqProduct['p-unitario']) : 0
-        let parsedCodigo = reqProduct['codigo'] ? Number(reqProduct['codigo']) : null
+        let parsedCodigo = reqProduct['codigo'] ? String(reqProduct['codigo']) : null
         let parsedProdId = productInDb ? Number(productInDb.dataValues.id) :  null
         //this console loge PROVES that this if else statement is passing (when passing a null product and one in the database)
         // console.log(productInDb, '============================')
-        // console.log(reqProduct)
+        // console.log(req.Product)
         // let productId =
         let productPack = {
             productId: parsedProdId,
@@ -139,7 +139,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
             descuento: parsedDescuento,
             precioTotal: parsedTotal
         }
-        // console.log(productPack)
+        console.log(productPack)
         try {
             await ProductsPresupuesto.create(productPack)
 
@@ -165,7 +165,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
 
     // console.log(presupuestoCompleto)
 
-    res.status(200).json({
+    res.json({
         message: "Successfully stored in the Database",
         // NuevoPresupuesto: presupuestoCompleto
     })
