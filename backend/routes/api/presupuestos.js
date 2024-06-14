@@ -29,7 +29,8 @@ router.get('/ultimo', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     let presupuestos = await Presupuesto.findAll({
-        include: { model: Product }
+        include: { model: Product },
+        order: [['id', 'DESC']]
     })
     res.status(200).json(presupuestos)
 })
@@ -111,7 +112,7 @@ router.post('/', checkDuplicate, async (req, res, next) => {
         await ProductsPresupuesto.create({
             productId: parseInt(reqProduct['id']),
             presupuestoId: parseInt(presupuestoId),
-            codigo: parseInt(reqProduct['codigo']),
+            codigo: reqProduct['codigo'],
             descripcion: reqProduct['descripcion'],
             cantidad: parseInt(reqProduct['cantidad']),
             precioUnit: parseFloat(reqProduct['p-unitario']),
