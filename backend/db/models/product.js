@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     // },
     medidasType: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     costo: {
       type: DataTypes.FLOAT
