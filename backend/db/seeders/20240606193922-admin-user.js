@@ -17,9 +17,21 @@ module.exports = {
     lastName: null,
     username: 'admin',
     email: 'thfloooringandmore@gmail.com',
+    tel: null,
     hashedPassword: bcrypt.hashSync('thflooring'),
     admin: true
-   }], {validate: true})
+   },
+   {
+    firstName: 'vendedor',
+    lastName: null,
+    username: 'vendedor',
+    email: 'thfloooringandmore@gmail.com',
+    tel: null,
+    hashedPassword: bcrypt.hashSync('thflooring'),
+    admin: true
+   }
+
+  ], {validate: true})
   },
 
   async down (queryInterface, Sequelize) {

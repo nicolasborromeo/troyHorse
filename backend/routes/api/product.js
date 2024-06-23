@@ -63,9 +63,9 @@ router.get('/', requireAuth, async (req, res, next) => {
 
 
 router.post('/', requireAuth, async (req, res, next) => {
-    const { codigo, descripcion, medidasValor, medidasType, costo, precio, cambio, company } = req.body
+    const { codigo, descripcion, medidasType, costo, precio, company } = req.body
     const newProduct = await Product.create({
-        codigo, descripcion, medidasValor, medidasType, costo, precio, cambio, company
+        codigo, descripcion, medidasType, costo, precio, company
     })
     res.status(201).json({
         message: 'Successfully added new product to the database',

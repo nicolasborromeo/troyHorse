@@ -54,11 +54,10 @@ const validateBody = [
 router.post('/', checkDuplicate, async (req, res, next) => {
     //GET DATA FROM BODY
     const { vendedor, telVendedor, fecha, fechaVenc, condicion,
-        cuit, telCliente, comentario, total } = req.body
+        comentario, total, moneda } = req.body
     let iva = req.body.iva
     iva = (iva === 'on') ? true : false;
-
-    const { cliente, direccion, provincia, loc, cp } = req.body
+    const { cliente, direccion, provincia, loc, cp,  cuit, telCliente } = req.body
     const codigoPresupuesto = req.body.codigoPresupuesto
 
 
@@ -73,7 +72,8 @@ router.post('/', checkDuplicate, async (req, res, next) => {
         condicion: condicion,
         iva: iva,
         comentarios: comentario,
-        total: total
+        total: total,
+        moneda: moneda
     })
     const nuevoPresupuesto = await Presupuesto.findOne({
         order: [['id', 'DESC']],
@@ -96,10 +96,9 @@ router.post('/', checkDuplicate, async (req, res, next) => {
             where: { codigo: reqProduct.codigo },
             attributes: ['id', 'codigo', 'descripcion']
         })
-        let prodAttributes
-        productInDb ? prodAttributes = productInDb.dataValues : undefined;
 
-  
+
+
         let parsedDescuento = reqProduct['descuento'] === '' ? 0 : parseInt(reqProduct['descuento']);
         let parsedCantidad = reqProduct['cantidad'] ? Number(reqProduct['cantidad']) : 1
         let parsedTotal = reqProduct['p-total'] ? parseFloat(reqProduct['p-total']) : 0

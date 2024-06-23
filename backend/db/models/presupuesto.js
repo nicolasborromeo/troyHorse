@@ -78,6 +78,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     total: {
       type: DataTypes.FLOAT
+    },
+    moneda: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'USD'
     }
   }, {
     sequelize,

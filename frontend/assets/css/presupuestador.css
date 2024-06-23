@@ -52,7 +52,7 @@
 .iva-descuento {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -81,6 +81,7 @@
 }
 
 
+
 .details-table {
     width: 100%;
     border-collapse: collapse;
@@ -89,9 +90,7 @@
 
 
 .details-table th, .details-table td {
-    /* width:min-content; */
     border: 1px solid #ddd;
-    /* padding: 1px; */
     text-align: center;
 }
 
@@ -106,6 +105,27 @@
     margin: 0;
 
 }
+
+
+.detalle-input::-webkit-outer-spin-button,
+.detalle-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; 
+}
+
+table td:nth-child(1) { 
+    
+    width: 20%; 
+  }
+table td:nth-child(2) { 
+    
+    width: 50%; 
+  }
+
+thead tr .numbers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 
 .below-iva{
     display: grid;
@@ -122,9 +142,6 @@
     top: 0;
     width: 150px;
     margin-left: 68%;
-    /* display: grid; */
-    /* max-width: min-content; */
-    /* min-width: min-content; */
     margin-top: 2px;
     font-size: 11px;
     font-weight:400;
@@ -174,3 +191,26 @@
     flex-direction: row;
     align-items: center;
 }
+
+#moneda-select {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    padding: 0px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    appearance: none; /* Remove default arrow in Chrome/Safari */
+    -webkit-appearance: none; /* Remove default arrow in Firefox */
+    background-color: #fff;
+    margin-right: 60px;
+    position: relative;
+    bottom: 3px;
+  }
+
+  #moneda-label {
+    margin-right: 15px;
+  }
+
+  #moneda-select:focus {
+    outline: none; /* Remove outline on focus */
+    border-color: #66afe9; /* Change border color on focus */
+  }

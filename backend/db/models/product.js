@@ -29,18 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    medidasValor: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    // medidasValor: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false
+    // },
     medidasType: {
       type: DataTypes.STRING,
-      allowNull: false,
-      // validate: {
-      //   isUppercase: true,
-      //   len: [2,3],
-      //   isIn: [['M2', 'UN', 'ML', 'LTS', 'KG']]
-      // }
+      allowNull: true,
     },
     costo: {
       type: DataTypes.FLOAT
@@ -48,9 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     precio: {
       type: DataTypes.FLOAT,
       allowNull: false
-    },
-    cambio: {
-      type: DataTypes.FLOAT
     },
     company: {
       type: DataTypes.STRING

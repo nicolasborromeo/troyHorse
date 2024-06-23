@@ -17,7 +17,7 @@ const setDates = () => {
     }
     let vencimientoFormatted = fechaVenc.toISOString().slice(0, 10);
     document.getElementById('fecha-venc').value = vencimientoFormatted;
-}
+};
 //AUTO-CALUCLATE TOTAL
 function calculateTotal() {
     let total = 0;
@@ -26,7 +26,7 @@ function calculateTotal() {
     const rows = document.querySelectorAll('#detalle-body tr');
     rows.forEach(row => {
         let quantity = parseInt(row.querySelector('input[name="cantidad"]').value);
-        if(quantity === NaN || quantity === '') {
+        if (quantity === NaN || quantity === '') {
             row.querySelector('input[name="cantidad"]').value = 1
         }
         let discount = parseInt(row.querySelector('input[name="descuento"]').value);
@@ -59,7 +59,7 @@ function calculateTotal() {
 
     const totalInput = document.getElementById('total');
     totalInput.value = total.toFixed(2);
-}
+};
 //POST
 async function handleFromSubmit() {
 
@@ -138,7 +138,7 @@ async function handleFromSubmit() {
     } catch (error) {
         console.error('Error saving in the database:', error);
     }
-}
+};
 //Helper functions inside HandleFormSubmit
 function getProducts() {
 
@@ -160,7 +160,7 @@ function getProducts() {
     })
     //when it's done return
     return products;
-}
+};
 //get new code for presupuesto on each load
 let fetchLastCode = async () => {
     try {
@@ -175,12 +175,12 @@ let fetchLastCode = async () => {
     } catch (error) {
         console.error('Error fetching last Presupuesto:', error);
     }
-}
+};
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchLastCode();
 });
 
-setDates()
+setDates();
 
 document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], input[name="descuento"]').forEach(input => {
     input.addEventListener('input', calculateTotal);
@@ -188,41 +188,21 @@ document.querySelectorAll('input[name="p-unitario"], input[name="cantidad"], inp
 document.getElementById('iva-incluido').addEventListener('change', calculateTotal);
 document.getElementById('iva-discriminado').addEventListener('change', calculateTotal);
 
-let presupuestador = document.querySelector('.presupuestador-from')
-let guardar = document.getElementById('guardar-button')
+let presupuestador = document.querySelector('.presupuestador-from');
+let guardar = document.getElementById('guardar-button');
 guardar.addEventListener('click', async (event) => {
     event.preventDefault();
-    handleFromSubmit()
-})
+    handleFromSubmit();
+});
 
 
-// Calculate the total and set the datesinitially
 
-// calculateTotal();
-
-
-//---------------------------------------------------------//
 //========================PRINT============================//
-
-document.querySelector('.print-button button').addEventListener('click', async (event) => {
-    event.preventDefault();
-
-    setCode()
-    cleanTable()
-    replaceInputs()
-
-    window.print();
-
-});
-
-window.addEventListener('afterprint', function () {
-    restoreInputs();
-});
 
 let originalInputs = []
 let replaceInputs = () => {
-
     let inputs = document.querySelectorAll('input')
+
     inputs.forEach(input => {
         originalInputs.push(input)
         let span = document.createElement('span')
@@ -235,6 +215,17 @@ let replaceInputs = () => {
         input.parentNode.replaceChild(span, input)
     })
     return
+};
+
+
+
+let replaceCommentario = () => {
+    let comentario = document.getElementById('comentario')
+    console.log('comentario', comentario)
+    console.log('textarea value', comentario.value)
+    console.log('= ""?', comentario.value === "")
+    comentario.classList = comentario.value === '' ? 'hidden' : ''
+
 }
 
 let restoreInputs = () => {
@@ -252,8 +243,7 @@ let restoreInputs = () => {
         }
     })
     return
-}
-
+};
 
 let cleanTable = () => {
     let tableBody = document.querySelectorAll("input[name=p-total")
@@ -261,9 +251,9 @@ let cleanTable = () => {
         row.value == 0.00 ? row.value = null : row.value
     })
     return
-}
+};
 
-let setCode =() => {
+let setCode = () => {
     let h3 = document.getElementById('vendedor-h3')
     let infoContainer = document.createElement('div')
     infoContainer.className = 'presupuesto-info-container'
@@ -274,4 +264,21 @@ let setCode =() => {
                         <span class="presupuesto-subtext">*No valido como factura</span>`
     h3.parentNode.replaceChild(infoContainer, h3)
     return
-}
+};
+
+
+document.querySelector('.print-button button').addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    setCode();
+    cleanTable();
+    replaceInputs();
+    replaceCommentario();
+
+    window.print();
+});
+
+window.addEventListener('afterprint', function () {
+    restoreInputs();
+    // restoreCommentario();
+});
