@@ -30,7 +30,7 @@ module.exports = {
       },
       medidasType: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false
       },
       costo: {
         type: Sequelize.FLOAT
