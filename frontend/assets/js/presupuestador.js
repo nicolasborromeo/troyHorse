@@ -202,6 +202,7 @@ guardar.addEventListener('click', async (event) => {
 let originalInputs = []
 let replaceInputs = () => {
     let inputs = document.querySelectorAll('input')
+
     inputs.forEach(input => {
         originalInputs.push(input)
         let span = document.createElement('span')
@@ -215,6 +216,17 @@ let replaceInputs = () => {
     })
     return
 };
+
+
+
+let replaceCommentario = () => {
+    let comentario = document.getElementById('comentario')
+    console.log('comentario', comentario)
+    console.log('textarea value', comentario.value)
+    console.log('= ""?', comentario.value === "")
+    comentario.classList = comentario.value === '' ? 'hidden' : ''
+
+}
 
 let restoreInputs = () => {
     //RESTORE VENDEDOR
@@ -261,10 +273,12 @@ document.querySelector('.print-button button').addEventListener('click', async (
     setCode();
     cleanTable();
     replaceInputs();
+    replaceCommentario();
 
     window.print();
 });
 
 window.addEventListener('afterprint', function () {
     restoreInputs();
+    // restoreCommentario();
 });
