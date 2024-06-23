@@ -27,8 +27,8 @@ module.exports = {
     username: 'vendedor',
     email: 'thfloooringandmore@gmail.com',
     tel: null,
-    hashedPassword: bcrypt.hashSync('thflooring'),
-    admin: true
+    hashedPassword: bcrypt.hashSync('vendedorth'),
+    admin: false
    }
 
   ], {validate: true})

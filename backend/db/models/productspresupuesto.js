@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Products',
         key: 'id'
       },
-      // allowNull: true
+      allowNull: true
     },
     presupuestoId: {
       type: DataTypes.INTEGER,

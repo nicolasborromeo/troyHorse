@@ -10,10 +10,10 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Products', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
       },
       codigo: {
         type: Sequelize.STRING,
@@ -23,10 +23,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-      },
-      medidasValor: {
-        type: Sequelize.STRING,
-        allowNull: false
       },
       medidasType: {
         type: Sequelize.STRING,
@@ -38,9 +34,6 @@ module.exports = {
       precio: {
         type: Sequelize.FLOAT,
         allowNull: false
-      },
-      cambio: {
-        type: Sequelize.FLOAT
       },
       company: {
         type: Sequelize.STRING
