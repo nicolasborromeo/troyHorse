@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       }};
 
     static associate(models) {
-      // Presupuesto.belongsTo(models.Cliente, {foreignKey: 'clienteId'})
+      Presupuesto.belongsTo(models.Cliente, {foreignKey: 'clientId'})
       Presupuesto.belongsToMany(models.Product,
         { through: 'ProductsPresupuestos',
           foreignKey:'presupuestoId',
@@ -61,10 +61,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     cliente: {
       type: DataTypes.STRING,
-      // references: {
-      //   model: 'Clientes',
-      //   key: 'id'
-      // }
+    },
+    clientId: {
+      type: DataTypes.INTEGER,
+        references: {
+        model: 'Clientes',
+        key: 'id'
+      }
     },
     condicion: {
       type: DataTypes.STRING

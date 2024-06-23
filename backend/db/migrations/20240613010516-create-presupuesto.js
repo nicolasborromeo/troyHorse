@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA
 };
 
@@ -35,10 +35,14 @@ module.exports = {
       },
       cliente: {
         type: Sequelize.STRING,
-        // references: {
-        //   model:'Clientes',
-        //   key: 'id'
-        // }
+      },
+      clientId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Clientes',
+          key: 'id'
+        }
       },
       condicion: {
         type: Sequelize.STRING
@@ -52,6 +56,11 @@ module.exports = {
       },
       total: {
         type: Sequelize.FLOAT
+      },
+      moneda: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'USD'
       },
       createdAt: {
         allowNull: false,
