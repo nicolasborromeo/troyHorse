@@ -69,9 +69,9 @@ module.exports = {
     options.tableName = 'Presupuestos'
     const {Op} = require('sequelize')
     await queryInterface.bulkDelete(options, {
-      codigo: {
-        [Op.in] : [1001, 1002, 1003, 1004]
-      }
+      // codigo: {
+      //   [Op.in] : [1001, 1002, 1003, 1004]
+      // }
     }, {});
 
   }
