@@ -126,14 +126,10 @@ async function handleFromSubmit() {
         })
         const responseData = await response.json();
 
-        // Check if the response was successful
         if (response.ok) {
-            // If successful, show a success alert
-            alert(responseData.message); // Display success message
-            // You can also do further actions like clearing form fields, etc.
+            alert(responseData.message);
         } else {
-            // If not successful, show an error alert
-            alert(`Error: ${responseData.message}`); // Display error message
+            alert(`Error: ${responseData.message}`);
         }
     } catch (error) {
         console.error('Error saving in the database:', error);
@@ -218,13 +214,30 @@ let replaceInputs = () => {
 };
 
 
+let originalComentario = null;
 
-let replaceCommentario = () => {
+let replaceComentario = () => {
     let comentario = document.getElementById('comentario')
-    console.log('comentario', comentario)
-    console.log('textarea value', comentario.value)
-    console.log('= ""?', comentario.value === "")
-    comentario.classList = comentario.value === '' ? 'hidden' : ''
+    let val = comentario.value
+    // comentario.classList = val === '' ? 'hidden' : ''
+
+    if (val !== '') {
+        originalComentario = comentario.cloneNode()
+        let p = document.createElement('p')
+        p.textContent = val
+        p.classList = 'comentario-p'
+        comentario.parentNode.replaceChild(p, comentario)
+    } else if (val === '') {
+        comentario.classList.add('hidden')
+    }
+}
+
+let restoreComentario = () => {
+    let comentario = document.getElementById('comentario')
+    if (comentario && comentario.classList.contains('hidden')) comentario.classList.remove('hidden')
+
+    let p = document.querySelector('.comentario-p')
+    if (p) p.parentNode.replaceChild(originalComentario, p)
 
 }
 
@@ -273,12 +286,12 @@ document.querySelector('.print-button button').addEventListener('click', async (
     setCode();
     cleanTable();
     replaceInputs();
-    replaceCommentario();
+    replaceComentario();
 
     window.print();
 });
 
 window.addEventListener('afterprint', function () {
+    restoreComentario();
     restoreInputs();
-    // restoreCommentario();
 });
