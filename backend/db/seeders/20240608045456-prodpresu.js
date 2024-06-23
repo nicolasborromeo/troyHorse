@@ -90,7 +90,9 @@ module.exports = {
     options.tableName = 'ProductsPresupuestos'
     const { Op } = require('sequelize')
     await queryInterface.bulkDelete(options, {
-      precioTotal : 1234.5
+      createdAt: {
+        [Op.lt]: new Date('2024-06-23') 
+      }
     }, {});
   }
 };
