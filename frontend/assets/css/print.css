@@ -190,14 +190,14 @@
     }
 
     .iva-discriminado-class {
-        position: relative;
-        right: -42px;
-        top: 5px;
+        position:relative;
+        right: 14px;
+        top: 0;
         width: 150px;
-        margin-left: 68%;
-        margin-top: 2px;
+        margin-left: 80%;
+        margin-top: 5px;
         font-size: 11px;
-        font-weight: 400;
+        font-weight:400;
         font-family: Arial, sans-serif;
         line-height: 5px;
         text-align: left;
