@@ -4082,7 +4082,7 @@
 //   ];
 
 const indusparquetProducts = [
-    {
+  {
     codigo: "00133",
     descripcion: "ADHESIVO VINILICO MONOCOMPONENTE K-1007 X 0,50 KG",
     medidasType: "UN",
@@ -9522,9 +9522,8 @@ const indusparquetProducts = [
     precio: 151.01,
     company: "Indusparquet"
   }
-    ];
-
-    module.exports = productObjects;
+];
 
 
-  module.exports = {indusparquetProducts};
+
+module.exports = { indusparquetProducts };
