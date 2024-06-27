@@ -13,9 +13,9 @@ let _populateTable = (data) => {
         const row = productsTable.insertRow();
         row.insertCell(0).textContent = product.codigo;
         row.insertCell(1).textContent = product.descripcion;
-        row.insertCell(2).textContent = product.medidasValor;
-        row.insertCell(3).textContent = product.medidasType;
-        row.insertCell(4).textContent = product.precio;
+        // row.insertCell(2).textContent = product.medidasValor;
+        row.insertCell(2).textContent = product.medidasType;
+        row.insertCell(3).textContent = product.precio;
 
         row.classList.add('product-row'); // add a class to later iterate over
         row.dataset.product = JSON.stringify(product);
@@ -114,9 +114,21 @@ window.onclick = function (event) {
         modal.style.display = "none";
         selectedProduct = null
     }
+    //--------------------- AGREGAR PRODUCTO -----------------
+    window.addEventListener('keydown', async (event) => {
+        if(event.key === 'Enter' && selectedProduct) {
+            modal.style.display = "none";
+            selectedRow.querySelector('input[name ="codigo"]').value = selectedProduct.codigo
+            selectedRow.querySelector('input[name ="descripcion"]').value = selectedProduct.descripcion
+            // if (!selectedRow.querySelector('input[name ="cantidad"]').value) selectedRow.querySelector('input[name ="cantidad"]').value = 1
+            selectedRow.querySelector('input[name ="p-unitario"]').value = selectedProduct.precio
+            // selectedRow.querySelector('input[name ="p-total"]').value = selectedProduct.precio * selectedRow.querySelector('input[name ="cantidad"]').value
+            selectedProduct = null
+        }
+    })
 
-//--------------------- AGREGAR PRODUCTO -----------------
-    if(event.target == agregar) {
+    
+    if(event.target == agregar ) {
         if(selectedProduct) {
             modal.style.display = "none";
             selectedRow.querySelector('input[name ="codigo"]').value = selectedProduct.codigo
@@ -124,7 +136,7 @@ window.onclick = function (event) {
             // if (!selectedRow.querySelector('input[name ="cantidad"]').value) selectedRow.querySelector('input[name ="cantidad"]').value = 1
             selectedRow.querySelector('input[name ="p-unitario"]').value = selectedProduct.precio
             // selectedRow.querySelector('input[name ="p-total"]').value = selectedProduct.precio * selectedRow.querySelector('input[name ="cantidad"]').value
-
+            selectedProduct = null
         } else{
             alert('Please select a product first.');
             return;
