@@ -9,10 +9,15 @@
     .hidden {
         display: none;
     }
+    .main-content {
+        border: 1px solid black;
+        height: 99% !important}
+
+
     body {
         width: 100%;
-        height: auto;
-        overflow: clip;
+        max-height: 99%;
+        overflow: hidden;
         margin: 0 !important;
         padding: 0 !important;
         box-shadow: none !important;
@@ -33,7 +38,7 @@
         box-shadow: none !important;
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: auto;
     }
 
 
@@ -128,6 +133,7 @@
         border-radius: 4px !important;
         box-sizing: border-box !important;
         box-shadow: none !important;
+
     }
 
     .details-table {
@@ -163,6 +169,7 @@
         font-size: 12px !important;
         color: #555 !important;
         box-shadow: none !important;
+
     }
 
     label {
@@ -257,4 +264,5 @@
       [name="descripcion"] {
        flex-wrap: wrap;
     }
+
 }
